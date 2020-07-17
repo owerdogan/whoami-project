@@ -71,3 +71,8 @@ I advise you to read to better understand the methods used for high anonymity </
 * Dns channger has been renewed
 * HostName channger has been renewed
 * Various measures were taken for bugs
+## Features in the development process
+
+* Multi language support
+* New modules
+* New modes of operation
