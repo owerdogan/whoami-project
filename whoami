@@ -1,646 +1,572 @@
-#!/usr/bin/env bash
-clear
-Green=`tput setaf 46`
-Red=`tput setaf 196`
-reset=`tput sgr0`
+#!/bin/bash
+# Whoami | Coded by Ömer Doğan
 
-banner() {
-clear
-sleep 0.3
-echo "  ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+# colors
+GREEN=""
+RED=""
+REDB=""
+YELLOW=""
+BLUE=""
+RESET=""
 
-      |  |
-      |/\|
-  ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁"
-sleep 0.3
-clear  
-echo "  ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+if [ -t 1 ]; then
+    if tput setaf 0 &>/dev/null; then
+        RESET="$(tput sgr0)"
+        BOLD="$(tput bold)"
+        GREEN="$(tput setaf 46)"
+        RED="$(tput setaf 1)"
+        REDB="${BOLD}${RED}"
+        YELLOW="$(tput setaf 3)"
+        BLUE="$(tput setaf 4)"
+    else
+        RESET="\e[0m"
+        BOLD="\e[1m"
+        GREEN="\e[32m"
+        RED="\e[31m"
+        REDB="${BOLD}${RED}"
+        YELLOW="\e[33m"
+        BLUE="\e[34m"
+    fi
+fi
 
-      |  | |__|
-      |/\| |  |
-  ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁"
-sleep 0.3
-clear
-echo "  ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
-                 __                  
-      |  | |__| /  \                 
-      |/\| |  | \__/                 
-  ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁"
-sleep 0.3
-clear
-echo "  ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
-                 __                 
-      |  | |__| /  \  /\            
-      |/\| |  | \__/ /~~\           
-  ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁"
-sleep 0.3
-clear
-echo "  ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
-                 __               
-      |  | |__| /  \  /\   |\/|   
-      |/\| |  | \__/ /~~\  |  |   
-  ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁"
-sleep 0.3
-clear
-echo "  ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
-                 __                 
-      |  | |__| /  \  /\   |\/| |   
-      |/\| |  | \__/ /~~\  |  | |   
-  ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
-"
-sleep 0.1
+# backup dir
+BACKUPDIR="/tmp/whoami"
+MBACKUPDIR="/tmp/whoami/mac_addresses"
+
+# tor config files
+TORRC="/etc/tor/torrc"
+
+# print error and exit
+err() {
+    echo "${RED}[-]${RESET} ${@}"
+    exit 1
 }
 
-state_banner() {
-echo "  ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+# print warning
+warn() {
+    echo "${YELLOW}[!]${RESET} ${@}"
+}
+
+# print message
+msg() {
+    echo "${GREEN}[+]${RESET} ${@}"
+}
+
+# print info
+info() {
+    echo "${BLUE}[*]${RESET} ${@}"
+}
+
+# read input
+input() {
+echo -n "${GREEN}┌─[whoami]─[~]
+└─╼ $ ${RESET}"
+}
+
+# print banner
+banner() {
+clear
+echo "${GREEN}  ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
                  __
       |  | |__| /  \  /\   |\/| |
       |/\| |  | \__/ /~~\  |  | |
   ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
-"
+${RESET}"
 }
 
-root_privilege() {
+# set language variables 
+# English
+English() {
+notification_1=("Whoami is already running!")
+notification_2=("Check your internet connection and try again!")
+notification_3=("Tor is not installed on your system. Setup is starting!")
+notification_4=("Tor could not be installed on your system!")
+notification_5=("Sdmem is not installed on your system. Setup is starting!")
+notification_6=("Sdmem could not be installed on your system!")
+notification_7=("Backup is starting...")
+notification_8=("System log files are destroying...")
+notification_9=("Memory and RAM are being clearing...")
+notification_10=("Memory cleaning has been disabled for the virtual machine!")
+notification_11=("Changing the hostname...")
+notification_12=("Anonymous DNS servers are setting up...")
+notification_13=("The MAC Address of all network interfaces is changing...")
+notification_14=("The proper network interface could not be detected. Whoami continues to the next step...")
+notification_15=("Time zone is setting to UTC...")
+notification_16=("IP address is changing anonymously...")
+notification_17=("Anonymization successful. Who are you?")
+notification_18=("Whoami is not working anyway")
+notification_19=("Restoring hostname from backups...")
+notification_20=("DNS servers restoring from backups...")
+notification_21=("Network interfaces' MAC addresses are restoring from backups...")
+notification_22=("Time zone is setting as default...")
+notification_23=("IP address reverting to normal...")
+notification_24=("Whoami has been stopped. Be careful.")
+lang_t=$(touch $BACKUPDIR/English)
+} 
+        
+# Turkish
+Turkish() {
+notification_1=("Whoami zaten çalışıyor!")
+notification_2=("İnternet bağlantınızı kontrol edip yeniden deneyin!")
+notification_3=("Tor sisteminizde kurulu değil. Kurulum başlatılıyor!")
+notification_4=("Tor sisteminize kurulamadı!")
+notification_5=("Sdmem sisteminizde kurulu değil. Kurulum başlatılıyor!")
+notification_6=("Sdmem sisteminize kurulamadı!")
+notification_7=("Yedekleme başlatılıyor...")
+notification_8=("Sistem log dosyaları yok ediliyor...")
+notification_9=("Bellek ve RAM temizleniyor...")
+notification_10=("Bellek temizleme sanal makine için devre dışı bıraldı!")
+notification_11=("Hostname değiştiriliyor...")
+notification_12=("Anonim DNS sunucuları ayarlarlanıyor...")
+notification_13=("Tüm ağ arayüzlerinin MAC Adresi değiştiriliyor...")
+notification_14=("Uygun ağ arayüzü tespit edilemedi. Whoami bir sonraki adıma geçiyor...")
+notification_15=("Zaman dilimi UTC olarak ayarlanıyor...")
+notification_16=("IP adresi anonim olarak gizleniyor...")
+notification_17=("Anonimleştirmme başarılı. Sen kimsin?")
+notification_18=("Whoami zaten çalışmıyor !")
+notification_19=("Hostname yedeklerden geri yükleniyor...")
+notification_20=("DNS sunucuları yedeklerden geri yükleniyor...")
+notification_21=("Ağ arayüzlerinin MAC adresleri yedeklerden geri yükleniyor...")
+notification_22=("Zaman dilimi varsayılan olarak ayarlanıyor...")
+notification_23=("IP adresi normale döndürülüyor...")
+notification_24=("Whoami durduruldu. Dikkatli ol.")
+#lang_t=$(touch $BACKUPDIR/Turkish.txt)
+}       
 
+# whoami start functions
+start() {
+
+# ask language selection question 
 if [ $(id -u) -ne 0 ]; then
-	echo "${Red}"
-	banner
-	echo  -e "${Red}\033[5m    This script must be run as root\033[0m
+     exit 1
+
+else 
+    sleep 0.1
+fi 
+msg "Select a language to continue
+
+[1] English
+[2] Türkçe
 "
-	exit 1
-fi
-}
-
-process_killer() {
-
-if cat .whoami_pkill.sh &> /dev/null ; then
-	echo "${Red}"
-	banner
-	echo "${Red}  It was detected that the system is already using whoami${reset}"
-	echo -n "${Red}  The other process terminating " && sleep 2 
-	bash .whoami_pkill.sh &> /dev/null && echo "${Green}successful." 
-	echo "${Green}  Whoami ready for rerun." && sleep 2
+n=0
+until [ $n -ge 99 ]
+do
+command &&
+input & read lang
+if  [ -z $lang ]; then
+     warn "Empty input"
+        
+elif [ $lang == 1 ]; then        
+      English
+      break
+         
+elif [ $lang == 2 ]; then
+      Turkish
+      break
+          
 else
-	echo -n "${Green}" && sleep 0.1
+      [ $lang -le 5 ] &> /dev/null 
+	  warn "Incorrect input"
+fi
+done
+
+# check backup directory
+if [ ! -d $BACKUPDIR ]; then
+    mkdir -p $BACKUPDIR
+    mkdir -p $MBACKUPDIR
+    $lang_t
+else 
+     err "$notification_1"
+     exit 1
 fi
 
-}
-
-requirements() {
-
-clear
-state_banner
-if tor -h &> /dev/null ; then
-	sleep 0.1
-else echo -n "${Red}  Tor is not installed on your system${reset}" && echo "${Green} installation started."
+# check network connection
+if curl ident.me &> /dev/null ; then
+	 sleep 0.1
+else err "$notification_2"
+     exit 1
+fi
+    
+# check and install tor
+if dpkg -l |grep tor &> /dev/null ; then
+	 sleep 0.1
+else warn "$notification_3"
      if apt-get install tor -y &> /dev/null ; then
-	sleep 1
-     else echo "${Red}  Tor installation failed update the system's sources.list file and try again." && exit 1
+	    sleep 0.1
+     else err "$notification_4" && exit 1
      fi
 fi
-if mkdir -p /usr/share/whoami/data &> /dev/null && mkdir -p /usr/share/whoami/backups &> /dev/null && install -Dm644 data/* /usr/share/whoami/data &> /dev/null &> /dev/null; then	
-   sleep 0.1
-else echo "${Red}
-  There was a problem creating the Whoami backup folder." && exit 1
+
+# check and install sdmem
+if dpkg -l |grep secure-delete &> /dev/null ; then
+	 sleep 0.1
+else warn "$notification_5"
+     if apt-get install secure-delete  -y &> /dev/null ; then
+	    sleep 0.1
+     else err "$notification_6" && exit 1
+     fi
 fi
 
-}
+info "$notification_7"
 
-whoami_start() {
+# backup hostname
+cat /etc/hostname > $BACKUPDIR/hostname.bak
 
-clear
-state_banner
-echo -n "  Stage : Destroying System Logs
+# backup resolv_conf
+mv /etc/resolv.conf $BACKUPDIR/resolv.conf.bak
 
-  [▇▇                   ] | %10"
-sleep 2
-if
+# backup mac addresses
+IFACES=$(ip -o link show | awk -F': ' '{print $2}')
+    for IFACE in $IFACES; do
+        if [ $IFACE != "lo" ]; then
+            cat /sys/class/net/$IFACE/address > $MBACKUPDIR/$IFACE
+        fi
+    done
+
+# backup timezone
+timedatectl show | grep Timezone | sed 's/Timezone=//g' > $BACKUPDIR/timezone.bak
+
+# backup torrc
+mv "$TORRC" $BACKUPDIR/torrc.bak
+
+# backup iptables
+iptables-save > $BACKUPDIR/iptables.rules.bak
+
+# clean system logs
+info "$notification_8"
+python - <<END
+import os
+
+global logs
+global detected_logs
+
+detected_logs = []
+possible_logs_list = ['/var/adm/utmp','/usr/adm/utmp','/etc/utmp','/var/log/utmp','/var/run/utmp','/var/adm/utmp','/var/run/utmp','/usr/var/adm/utmp','/var/adm/wtmp','/usr/adm/wtmp','/etc/wtmp','/var/log/wtmp','/var/adm/wtmp','/var/run/wtmp','/usr/var/adm/wtmp','/var/adm/utmpx','/usr/adm/utmpx','/usr/run/utmpx','/etc/utmpx','/var/log/utmpx','/var/run/utmpx','/usr/var/adm/utmpx','/var/adm/wtmpx','/usr/adm/wtmpx','/etc/wtmpx','/var/log/wtmpx','/var/run/wtmpx','/usr/adm/wtmpx','/usr/var/adm/wtmpx','/var/adm/lastlog','/usr/adm/lastlog','/etc/lastlog','/var/log/lastlog','/usr/adm/lastlog','/usr/run/lastlog','/usr/var/adm/lastlog','/var/adm/pacct','/var/account/pacct','/var/log/acct','/var/log/pacct','/var/adm/acct','/var/adm/pacct','/var/account/acct','/usr/adm/acct','/var/log/prelude.log','/var/log/prelude/prelude.log','/var/adm/prelude/prelude.log','/var/adm/prelude/log/prelude.log','/var/adm/log/prelude.log','/var/ids/log/prelude.log','/var/ids/prelude/log/prelude.log','/var/ids/prelude.log','/var/prelude/prelude.log','/var/prelude/log/prelude.log','/home/log/prelude.log','/home/ids/log/prelude.log','/home/prelude/log/prelude.log','/home/ids/prelude.log','/home/prelude/prelude.log','/home/log/prelude.log','/usr/local/var/log/prelude.log','/var/log/prelude-xml.log','/var/log/prelude/prelude-xml.log','/var/adm/prelude/prelude-xml.log','/var/adm/prelude/log/prelude-xml.log','/var/adm/log/prelude-xml.log','/var/ids/log/prelude-xml.log','/var/ids/prelude/log/prelude-xml.log','/var/ids/prelude-xml.log','/var/prelude/prelude-xml.log','/var/prelude/log/prelude-xml.log','/home/log/prelude-xml.log','/home/ids/log/prelude-xml.log','/home/prelude/log/prelude-xml.log','/home/ids/prelude-xml.log','/home/prelude/prelude-xml.log','/home/log/prelude-xml.log','/usr/local/var/log/prelude-xml.log','/var/log/samba/log.smbd','/var/log/samba/log.nmbd','/var/log/log.smbd','/var/log/log.nmbd','/var/log/smb/log.smbd','/var/log/smb/log.nmbd','/home/samba/log.smbd','/home/samba/log.nmbd','/home/samba/log/log.smbd','/home/samba/log/log.nmbd','/home/samba/logs/log.smbd','/home/samba/logs/log.nmbd','/var/log/snort/snort.alert','/var/log/snort.alert','/var/log/ids/snort.alert','/var/ids/snort/snort.alert','/var/ids/snort.alert','/var/snort/snort.alert','/home/snort/snort.alert','/home/snort/log/snort.alert','/home/log/snort/snort.alert','/home/log/snort.alert','/home/ids/snort/snort.alert','/home/ids/snort.alert','/usr/local/ids/snort.alert','/usr/local/var/snort.alert','/usr/local/snort/snort.alert','/usr/local/var/log/snort.alert','/usr/local/snort/log/snort.alert','/usr/local/ids/log/snort.alert','/usr/local/log/snort.alert','/usr/local/log/snort/snort.alert','/var/log/apache2/audit_log','/var/log/apache1/audit_log','/var/log/apache/audit_log','/home/apache2/log/audit_log','/home/apache1/log/audit_log','/home/apache/log/audit_log','/home/http/log/audit_log','/home/httpd/log/audit_log','/var/log/http/audit_log','/var/log/httpd/audit_log','/usr/http/log/audit_log','/usr/httpd/log/audit_log','/usr/local/http/log/audit_log','/usr/local/httpd/log/audit_log','/usr/local/apache/log/audit_log','/usr/local/apache2/log/audit_log','/usr/local/apache1/log/audit_log','/var/www/log/audit_log','/var/http/log/audit_log','/var/httpd/log/audit_log','/var/apache/log/audit_log','/var/apache2/log/audit_log','/var/apache1/log/audit_log','/root/.bash_history','/root/.history','/root/.sh_history','/.bash_history','/.history','/.sh_history','/tmp/.bash_history','/tmp/.sh_history','/tmp/.history','/home/apache/.bash_history','/home/apache/.sh_history','/home/apache/.history','/home/apache1/.bash_history','/home/apache1/.sh_history','/home/apache1/.history','/home/apache2/.bash_history','/home/apache2/.sh_history','/home/apache2/.history','/home/httpd/.bash_history','/home/httpd/.sh_history','/home/httpd/.history','/home/ftpd/.bash_history','/home/ftpd/.sh_history','/home/ftpd/.history','/var/log/apache2/access_log','/var/log/apache2/access_log.1','/var/log/apache2/access_log.2','/var/log/apache2/error_log','/var/log/apache2/error_log.1','/var/log/apache2/error_log.2','/var/log/apache2/ssl_access_log','/var/log/apache2/ssl_access_log.1','/var/log/apache2/ssl_access_log.2','/var/log/apache2/ssl_error_log','/var/log/apache2/ssl_request_log','/var/log/apache2/request_log','/var/log/apache/access_log','/var/log/apache/access_log.1','/var/log/apache/access_log.2','/var/log/apache/error_log','/var/log/apache/error_log.1','/var/log/apache/error_log.2','/var/log/apache/ssl_access_log','/var/log/apache/ssl_error_log','/var/log/apache/ssl_request_log','/var/log/apache/request_log','/var/log/apache1/access_log','/var/log/apache1/error_log','/var/log/apache1/ssl_access_log','/var/log/apache1/ssl_error_log','/var/log/apache1/ssl_request_log','/var/log/apache1/request_log','/var/www/log/access_log','/var/www/log/error_log','/var/www/log/ssl_access_log','/var/www/log/ssl_error_log','/var/www/log/ssl_request_log','/var/www/log/request_log','/var/apache2/access_log','/var/apache2/error_log','/var/apache2/ssl_access_log','/var/apache2/ssl_error_log','/var/apache2/ssl_request_log','/var/apache2/request_log','/home/apache2/access_log','/home/apache2/error_log','/home/apache2/ssl_access_log','/home/apache2/ssl_error_log','/home/apache2/ssl_request_log','/home/apache2/request_log','/var/web/log/access_log','/var/web/log/error_log','/var/web/log/ssl_access_log','/var/web/log/ssl_error_log','/var/web/log/ssl_request_log','/var/web/log/request_log','/var/apache/access_log','/var/apache/error_log','/var/apache/ssl_access_log','/var/apache/ssl_error_log','/var/apache/ssl_request_log','/var/apache/request_log','/home/apache/access_log','/home/apache/error_log','/home/apache/ssl_access_log','/home/apache/ssl_error_log','/home/apache/ssl_request_log','/home/apache/request_log','/var/apache1/access_log','/var/apache1/error_log','/var/apache1/ssl_access_log','/var/apache1/ssl_error_log','/var/apache1/ssl_request_log','/var/apache1/request_log','/home/apache1/access_log','/home/apache1/error_log','/home/apache1/ssl_access_log','/home/apache1/ssl_error_log','/home/apache1/ssl_request_log','/home/apache1/request_log','/usr/apache1/error_log','/usr/apache1/ssl_access_log','/usr/apache1/ssl_error_log','/usr/apache1/ssl_request_log','/usr/apache1/request_log','/usr/local/apache1/error_log','/usr/local/apache1/ssl_access_log','/usr/local/apache1/ssl_error_log','/usr/local/apache1/ssl_request_log','/usr/local/apache1/request_log','/usr/apache2/error_log','/usr/apache2/ssl_access_log','/usr/apache2/ssl_error_log','/usr/apache2/ssl_request_log','/usr/apache2/request_log','/usr/local/apache2/error_log','/usr/local/apache2/ssl_access_log','/usr/local/apache2/ssl_error_log','/usr/local/apache2/ssl_request_log','/usr/local/apache2/request_log','/usr/apache/error_log','/usr/apache/ssl_access_log','/usr/apache/ssl_error_log','/usr/apache/ssl_request_log','/usr/apache/request_log','/usr/local/apache/error_log','/usr/local/apache/ssl_access_log','/usr/local/apache/ssl_error_log','/usr/local/apache/ssl_request_log','/usr/local/apache/request_log','/usr/local/httpd/access_log','/usr/local/httpd/ssl_access_log','/usr/local/httpd/error_log','/usr/local/httpd/ssl_error_log','/usr/local/httpd/ssl_request_log','/home/httpd/access_log','/home/httpd/ssl_access_log','/home/httpd/error_log','/home/httpd/ssl_error_log','/var/adm/SYSLOG','/var/adm/sulog','/var/adm/utmp','/var/adm/utmpx','/var/adm/wtmp','/var/adm/wtmpx','/var/adm/lastlog/username','/usr/spool/lp/log','/var/adm/lp/lpd-errs','/usr/lib/cron/log','/var/adm/loginlog','/var/adm/pacct','/var/adm/dtmp','/var/adm/acct/sum/loginlog','/var/adm/X0msgs','/var/adm/crash/vmcore','/var/adm/crash/unix','/var/adm/pacct','/var/adm/wtmp','/var/adm/dtmp','/var/adm/qacct','/var/adm/sulog','/var/adm/ras/errlog','/var/adm/ras/bootlog','/var/adm/cron/log','/etc/utmp','/etc/security/lastlog','/etc/security/failedlogin','/usr/spool/mqueue/syslog','/var/adm/messages','/var/adm/aculogs','/var/adm/aculog','/var/adm/sulog','/var/adm/vold.log','/var/adm/wtmp','/var/adm/wtmpx','/var/adm/utmp','/var/adm/utmpx','/var/adm/log/asppp.log','/var/log/syslog','/var/log/POPlog','/var/log/authlog','/var/log/auth1.log','/var/adm/pacct','/var/lp/logs/lpsched','/var/lp/logs/lpNet','/var/lp/logs/requests','/var/cron/log','/var/saf/_log','/var/saf/port/log','/var/adm/utmp','/var/log/utmp','/var/run/utmp','/var/adm/utmp','/var/run/utmp','/usr/var/adm/utmp','/var/adm/wtmp','/var/log/wtmp','/var/adm/wtmp','/var/run/wtmp','/usr/var/adm/wtmp','/var/adm/utmpx','/var/log/utmpx','/var/run/utmpx','/usr/var/adm/utmpx','/var/adm/wtmpx','/var/log/wtmpx','/var/run/wtmpx','/usr/var/adm/wtmpx','/var/adm/lastlog','/var/log/lastlog','/usr/var/adm/lastlog','/var/adm/pacct','/var/account/pacct','/var/log/acct','/var/log/pacct','/var/adm/acct','/var/adm/pacct','/var/account/acct','/var/log/prelude.log','/var/log/prelude/prelude.log','/var/adm/prelude/prelude.log','/var/adm/prelude/log/prelude.log','/var/adm/log/prelude.log','/var/ids/log/prelude.log','/var/ids/prelude/log/prelude.log','/var/ids/prelude.log','/var/prelude/prelude.log','/var/prelude/log/prelude.log','/usr/local/var/log/prelude.log','/var/log/prelude-xml.log','/var/log/prelude/prelude-xml.log','/var/adm/prelude/prelude-xml.log','/var/adm/prelude/log/prelude-xml.log','/var/adm/log/prelude-xml.log','/var/ids/log/prelude-xml.log','/var/ids/prelude/log/prelude-xml.log','/var/ids/prelude-xml.log','/var/prelude/prelude-xml.log','/var/prelude/log/prelude-xml.log','/usr/local/var/log/prelude-xml.log','/var/log/samba/log.smbd','/var/log/samba/log.nmbd','/var/log/log.smbd','/var/log/log.nmbd','/var/log/smb/log.smbd','/var/log/smb/log.nmbd','/var/log/snort/snort.alert','/var/log/snort.alert','/var/log/ids/snort.alert','/var/ids/snort/snort.alert','/var/ids/snort.alert','/var/snort/snort.alert','/usr/local/var/snort.alert','/usr/local/var/log/snort.alert','/var/log/apache2/audit_log','/var/log/apache1/audit_log','/var/log/apache/audit_log','/var/log/http/audit_log','/var/log/httpd/audit_log','/var/www/log/audit_log','/var/http/log/audit_log','/var/httpd/log/audit_log','/var/apache/log/audit_log','/var/apache2/log/audit_log','/var/apache1/log/audit_log','/var/log/apache2/access_log','/var/log/apache2/access_log.1','/var/log/apache2/access_log.2','/var/log/apache2/error_log','/var/log/apache2/error_log.1','/var/log/apache2/error_log.2','/var/log/apache2/ssl_access_log','/var/log/apache2/ssl_access_log.1','/var/log/apache2/ssl_access_log.2','/var/log/apache2/ssl_error_log','/var/log/apache2/ssl_request_log','/var/log/apache2/request_log','/var/log/apache/access_log','/var/log/apache/access_log.1','/var/log/apache/access_log.2','/var/log/apache/error_log','/var/log/apache/error_log.1','/var/log/apache/error_log.2','/var/log/apache/ssl_access_log','/var/log/apache/ssl_error_log','/var/log/apache/ssl_request_log','/var/log/apache/request_log','/var/log/apache1/access_log','/var/log/apache1/error_log','/var/log/apache1/ssl_access_log','/var/log/apache1/ssl_error_log','/var/log/apache1/ssl_request_log','/var/log/apache1/request_log','/var/www/log/access_log','/var/www/log/error_log','/var/www/log/ssl_access_log','/var/www/log/ssl_error_log','/var/www/log/ssl_request_log','/var/www/log/request_log','/var/apache2/access_log','/var/apache2/error_log','/var/apache2/ssl_access_log','/var/apache2/ssl_error_log','/var/apache2/ssl_request_log','/var/apache2/request_log','/var/web/log/access_log','/var/web/log/error_log','/var/web/log/ssl_access_log','/var/web/log/ssl_error_log','/var/web/log/ssl_request_log','/var/web/log/request_log','/var/apache/access_log','/var/apache/error_log','/var/apache/ssl_access_log','/var/apache/ssl_error_log','/var/apache/ssl_request_log','/var/apache/request_log','/var/apache1/access_log','/var/apache1/error_log','/var/apache1/ssl_access_log','/var/apache1/ssl_error_log','/var/apache1/ssl_request_log','/var/apache1/request_log','/var/log','/var/adm','/var/spool/mqueue','/var/mail','/var/log/emerge.log','/var/log/Xorg.0.log','/root/.bash_history','/root/.bash_logout','/usr/local/apache/logs','/usr/local/apache/log','/var/apache/logs','/var/apache/log','/var/run/utmp','/var/logs','/var/log','/var/adm','/etc/wtmp','/etc/utmp','/var/log/lastlog','/var/log/syslog','/var/log/messages','/var/log/httpd/access_log','/var/log/httpd/access.log','/var/log/httpd/error_log','/var/log/httpd/error.log','/var/log/apache2/access_log','/var/log/apache2/access.log','/var/log/apache2/error.log','/var/log/apache2/error_log','/var/log/wtmp','/var/log/secure','/var/log/xferlog','/var/log/auth.log','/var/log/lighttpd/lighttpd.error.log','/var/log/lighttpd/lighttpd.access.log','/var/run/utmp','/var/www/logs/access_log','/var/www/logs/access.log','/var/www/logs/error_log','/var/www/logs/error.log','/var/log/apache/access_log','/var/log/apache/access.log','/var/log/apache/error_log','/var/log/apache/error.log','/var/log/yum.log','/etc/httpd/logs/access_log','/etc/httpd/logs/access.log','/etc/httpd/logs/error_log','/etc/httpd/logs/error.log']
+
+for x in possible_logs_list:
+	if os.path.isfile(x) == True:
+		detected_logs.append(x)
+		clean_detected_logs = "shred -vfzu " + x + " > /dev/null 2>&1 && touch " + x + " > /dev/null 2>&1" 
+		os.system(clean_detected_logs)
+			
+END
 	command &&
-	for log_killer in `locate *.log`; do
-    		echo "shred -vfzu $log_killer"
-    		echo "touch $log_killer" 
-	done > whoami_log_killer.sh &> /dev/null
-	sudo bash whoami_log_killer.sh &> /dev/null  ; then
-	sleep 0.1 & pid=$(ps -o ppid= -p "$!") && echo "kill -9 $pid" > .whoami_pkill.sh 
-else 
-	echo "${Red}
-  There was a problem destroying the Whoami System Logs." && sleep 0.1 & pid=$(ps -o ppid= -p "$!") 
-echo "kill -9 $pid" > .whoami_pkill.sh  && exit 1
+		for logs in `find / -name "*.log"`; do
+				shred -vfzu $logs 
+				touch $logs 
+		done &> /dev/null
+		shred -vfzu Authentication.log Log.log Test Tests.log &> /dev/null
+
+# memory and ram wipe
+info "$notification_9"
+swapoff -a 
+swapon -a 
+echo 1024 >/proc/sys/vm/min_free_kbytes
+echo 3 >/proc/sys/vm/drop_caches
+echo 1 >/proc/sys/vm/oom_kill_allocating_task
+echo 1 >/proc/sys/vm/overcommit_memory
+echo 0 >/proc/sys/vm/oom_dump_tasks
+if [ "$(dmidecode -s system-manufacturer)" == "innotek GmbH" ] || [ "$(dmidecode -s system-manufacturer)" == "VMware, Inc." ] &>/dev/null; then
+	warn "$notification_10"
+else
+	sdmem -fll &> /dev/null 
 fi
-shred -vfzu whoami_log_killer.sh &> /dev/null
-echo -e -n "\r     \r" && echo "  [▇▇▇                  ] | %15"
-sleep 2
-sleep 0.1 & pid=$(ps -o ppid= -p "$!") && echo "kill -9 $pid" > .whoami_pkill.sh  
-clear
-state_banner
-echo -n "  Stage : Assigning a fake HostName
 
-  [▇▇▇▇                 ] | %20"
-	oldname=$(cat /etc/hostname)
-	oldnames=$(cat /etc/hosts)
-	hexchars="ABCDEF789654321"
-	end=$( for i in {1..6} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/I\1/g' )
-	body=$( for i in {1..4} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/I\1/g' )
-	head=$( for i in {1..2} ; do echo -n ${hexchars:$(( $RANDOM % 16 )):1} ; done | sed -e 's/\(..\)/ \1/g' )
-	fakeid=($head$body$end)
-	echo "127.0.0.1       localhost $fakeid
-	::1             localhost ip6-localhost ip6-loopback
-	fe00::0         ip6-localnet
-	ff00::0         ip6-mcastprefix
-	ff02::1         ip6-allnodes
-	ff02::2         ip6-allrouters" > /etc/hosts 
-	echo "$fakeid" > /etc/hostname
-	newname=$(cat /etc/hostname)
-	newnames=$(cat /etc/hosts)
-	sleep 2
-	sleep 0.1 & pid=$(ps -o ppid= -p "$!") && echo "kill -9 $pid" > .whoami_pkill.sh 
-	echo "echo "$oldname" > /etc/hostname" >> .whoami_pkill.sh 
-	echo "echo "$oldnames" > /etc/hosts" >> .whoami_pkill.sh 
-echo -e -n "\r     \r" && echo "  [▇▇▇▇▇▇               ] | %35"
-	if  [ $oldname != $newname ] &> /dev/null  ; then
-		sleep 1
-	else
-		echo "${Red}
-  There was a problem changing the Whoami HostName."&& exit 1
-	fi
-clear
-state_banner
-echo -n "  Stage : Setting DNS
+# hostname change
+info "$notification_11"
+array[0]="Windows10-Enterprise "
+array[1]="Windows10-Pro"
+array[2]="Windows10-Enterprise-LTSC "
+array[3]="Windows8.1O-EM"
+array[4]="Windows8-Enterprise"
+array[5]="Windows8.1-Pro"
+array[6]="Windows7-Professional"
+array[7]="Windows7-Enterprise"
+array[8]="Windows7-Ultimate"
+array[9]="Windows-Vista-Business"
+array[10]="WindowsXP-Professional"
+array[11]="macOS11"
+array[12]="OSX10.11"
+array[13]="MacBook-Air"
+array[14]="MacBook"
+array[15]="MacBook-Pro"
 
-  [▇▇▇▇▇▇▇▇             ] | %40"
-sleep 2
-	dns_backup=$(grep nameserver /etc/resolv.conf)
-	echo "# Generated by Whoami
+size=${#array[@]}
+index=$(($RANDOM % $size))
+
+echo "127.0.0.1       localhost ${array[$index]}
+::1             localhost ip6-localhost ip6-loopback
+fe00::0         ip6-localnet
+ff00::0         ip6-mcastprefix
+ff02::1         ip6-allnodes
+ff02::2         ip6-allrouters" > /etc/hosts 
+echo "${array[$index]}" > /etc/hostname
+
+# configure nameservers
+info "$notification_12"
+cat >"/etc/resolv.conf" <<EOF
+# generated by whoami
+nameserver 1.1.1.1
+nameserver 1.0.0.1
 nameserver 84.200.69.80
 nameserver 84.200.70.40
+nameserver 208.67.222.222
+nameserver 208.67.220.220
 nameserver 91.239.100.100
 nameserver 89.233.43.71
-nameserver 192.168.1.1" > /etc/resolv.conf
-	dns_check=$(grep nameserver /etc/resolv.conf)
-	sleep 0.1 & pid=$(ps -o ppid= -p "$!") && echo "kill -9 $pid" > .whoami_pkill.sh 
-	echo "echo "$oldname" > /etc/hostname" >> .whoami_pkill.sh 
-	echo "echo "$oldnames" > /etc/hosts" >> .whoami_pkill.sh 
-	echo "echo "$dns_backup" > /etc/resolv.conf" >> .whoami_pkill.sh 
-echo -e -n "\r     \r" && echo  "  [▇▇▇▇▇▇▇▇▇▇           ] | %50"
-	if grep Whoami /etc/resolv.conf &>/dev/null ; then
-		sleep 0.1
-	else
-		echo "${Red}
-  There was a problem setting the Whoami DNS." && exit 1
-	fi
-sleep 1
-clear
-state_banner
-echo  "  Stage : Mac Address Change
+EOF
+    chmod 644 /etc/resolv.conf
 
-  [▇▇▇▇▇▇▇▇▇▇▇▇▇        ] | %65"
-sleep 1
+# check virtual machine and change mac address
+info "$notification_13"
+IFACES=$(ip -o link show | awk -F': ' '{print $2}')
 
-	mac_channger() {
-clear
-state_banner
-echo  -n "  Stage : Mac Address Change
+changer_func(){
+n=0
+until [ $n -ge 10 ]
+do
+command &&
+RAND_MAC() {
 
-  [▇▇▇▇▇▇▇▇▇▇▇▇▇▇       ] | %70"
-				oldmac=$(cat /sys/class/net/$macc/address)
-				n=0
-				until [ $n -ge 10 ]
-				do
-				command &&
-				RAND_MAC() {
-
-				gen() {
-				NUM="$(tr -dc '0-9a-f' </dev/urandom | head -c 2)"
-				echo -n "$NUM:"
-				}
-
-				for c in {1..6}; do
-
-				if [ "$c" -lt "6" ]; then
-					gen
-				else
-					gen | tr -d ':'
-				fi
-
-				done
-				}
-				n=$[$n+1]
-				out=$(RAND_MAC)
-				echo $out	
-				ifconfig $macc down
-				ifconfig $macc hw ether $out
-				ifconfig $macc up
-				done &> /dev/null
-				newmac=$(cat /sys/class/net/$macc/address)
-				macok="True"
-				echo -e -n "\r     \r" && echo "  [▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇      ] | %75"
-				sleep 0.1 & pid=$(ps -o ppid= -p "$!") && echo "kill -9 $pid" > .whoami_pkill.sh
-				echo "echo "$oldname" > /etc/hostname" >> .whoami_pkill.sh 
-				echo "echo "$oldnames" > /etc/hosts" >> .whoami_pkill.sh 
-				echo "echo "$dns_backup" > /etc/resolv.conf" >> .whoami_pkill.sh 
-				echo "ifconfig $macc down " >> .whoami_pkill.sh 
-				echo "ifconfig $macc hw ether $oldmac" >> .whoami_pkill.sh 
-				echo "ifconfig $macc up" >> .whoami_pkill.sh 
-				if [ $oldmac != $newmac ] ; then
-					sleep 1
-				else
-					echo "${Red}
-  There was a problem changing the Whoami Mac address." && exit 1
-				fi
-	}
-
-	if [ "$(dmidecode -s system-manufacturer)" == "innotek GmbH" ] &>/dev/null; then
-		echo ""
-		echo "${Green}  Virtual Machine detected" && sleep 1
-		if nmcli dev | grep wifi &>/dev/null; then
-				n=0
-				until [ $n -ge 99 ]
-				do
-				command &&
-				echo -n "${Green} * Network interface ➤ " && read macc
-				if [ -z $macc ]; then
-					echo "${Red}   Empty input !"
-				else
-					sudo iwconfig $macc &> /dev/null && break
-					echo "${Red}   Incorrect input "
-				fi
-				done
-				mac_channger
-		else
-			nwl="True"
-			echo "${Red}  Wireless card not detected so you cannot use this module."  && sleep 1
-			echo "${Green}  Whoami continues with the next module." && sleep 3
-		fi
-	else
-			n=0		
-			until [ $n -ge 99 ]
-			do
-			command &&
-			echo -n "${Green} * Network interface ➤ " && read macc
-			if [ -z $macc ]; then
-				echo "${Red}   Empty input"
-			else
-				sudo ifconfig $macc &> /dev/null && break
-				echo "${Red}   Incorrect input"
-			fi
-			done
-			mac_channger
-
-	fi 
-clear
-state_banner
-echo -n "  Stage : Setting the Time zone
-
-  [▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇     ] | %80"
-timezonebackup=$(cat /etc/timezone)
-echo -e -n "\r     \r" && echo "  [▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇   ] | %85"
-sleep 1
-timedatectl set-timezone UTC
-sleep 0.1 & pid=$(ps -o ppid= -p "$!") && echo "kill -9 $pid" > .whoami_pkill.sh 
-echo "echo "$oldname" > /etc/hostname" >> .whoami_pkill.sh 
-echo "echo "$oldnames" > /etc/hosts" >> .whoami_pkill.sh 
-echo "echo "$dns_backup" > /etc/resolv.conf" >> .whoami_pkill.sh
-if [ $macok == "True" ] &>/dev/null; then
-	echo "ifconfig $macc down " >> .whoami_pkill.sh
-	echo "ifconfig $macc hw ether $oldmac" >> .whoami_pkill.sh 
-	echo "ifconfig $macc up" >> .whoami_pkill.sh 
-fi
-echo "timedatectl set-timezone $timezonebackup" >> .whoami_pkill.sh 
-sleep 2 
-clear
-state_banner
-echo -n "  Stage : IP Hiding
-
-  [▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇  ] | %90"
-sleep 2
-
-	readonly config_dir="/usr/share/whoami/data"
-	readonly backup_dir="/usr/share/whoami/backups"
-	readonly tor_uid="$(id -u debian-tor)"
-	readonly trans_port="9040"
-	readonly dns_port="5353"
-	readonly virtual_address="10.192.0.0/10"
-	readonly non_tor="127.0.0.0/8 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16"
-
-	die() {
-	    
-	    exit 1
-	}
-
-	check_root() {
-	    if [[ "$(id -u)" -ne 0 ]]; then
-		die 
-	    fi
-	}
-
-	check_settings() {
-	    declare -a dependencies=('tor' 'curl')
-
-	    for package in "${dependencies[@]}"; do
-		if ! hash "${package}" 2>/dev/null; then
-		    die
-		fi
-	    done
-
-	    if [ ! -d "$backup_dir" ]; then
-		die
-	    fi
-
-	    if [ ! -d "$config_dir" ]; then
-		die
-	    fi
-
-	    if [[ ! -f /etc/tor/torrc ]]; then
-
-		if ! cp -vf "$config_dir/torrc" /etc/tor/torrc &> /dev/null; then
-		    die
-		fi
-	    else
-		
-		grep -q -x 'VirtualAddrNetworkIPv4 10.192.0.0/10' /etc/tor/torrc
-		local string1=$?
-
-		grep -q -x 'AutomapHostsOnResolve 1' /etc/tor/torrc
-		local string2=$?
-
-		grep -q -x 'TransPort 9040 IsolateClientAddr IsolateClientProtocol IsolateDestAddr IsolateDestPort' /etc/tor/torrc
-		local string3=$?
-
-		grep -q -x 'SocksPort 9050' /etc/tor/torrc
-		local string4=$?
-
-		grep -q -x 'DNSPort 5353' /etc/tor/torrc
-		local string5=$?
-
-		if [[ "$string1" -ne 0 ]] ||
-		   [[ "$string2" -ne 0 ]] ||
-		   [[ "$string3" -ne 0 ]] ||
-		   [[ "$string4" -ne 0 ]] ||
-		   [[ "$string5" -ne 0 ]]; then
-
-		    if ! cp -vf /etc/tor/torrc "$backup_dir/torrc.backup" &> /dev/null; then
-		        die
-		    fi
-
-		    if ! cp -vf "$config_dir/torrc" /etc/tor/torrc &> /dev/null; then
-		        die
-		    fi
-		fi
-	    fi
-
-	    systemctl --system daemon-reload
-
-	}
-
-	setup_iptables() {
-	    case "$1" in
-		tor_proxy)
-
-		    if ! [[ -f /etc/iptables.rules ]]; then
-		        iptables-save > "$backup_dir/iptables.backup"
-		    fi
-
-		    iptables -F
-		    iptables -X
-		    iptables -t nat -F
-		    iptables -t nat -X
-
-		    iptables -t nat -A OUTPUT -d $virtual_address -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -j REDIRECT --to-ports $trans_port
-
-		    iptables -t nat -A OUTPUT -d 127.0.0.1/32 -p udp -m udp --dport 53 -j REDIRECT --to-ports $dns_port
-
-		    iptables -t nat -A OUTPUT -m owner --uid-owner $tor_uid -j RETURN
-		    iptables -t nat -A OUTPUT -o lo -j RETURN
-
-		    for lan in $non_tor; do
-		        iptables -t nat -A OUTPUT -d $lan -j RETURN
-		    done
-
-		    iptables -t nat -A OUTPUT -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -j REDIRECT --to-ports $trans_port
-
-		    iptables -A INPUT -m state --state ESTABLISHED -j ACCEPT
-		    iptables -A INPUT -i lo -j ACCEPT
-		    iptables -A INPUT -j DROP
-
-		    iptables -A FORWARD -j DROP
-
-		    iptables -A OUTPUT -m conntrack --ctstate INVALID -j DROP
-
-		    iptables -A OUTPUT -m state --state INVALID -j DROP
-		    iptables -A OUTPUT -m state --state ESTABLISHED -j ACCEPT
-
-		    iptables -A OUTPUT -m owner --uid-owner $tor_uid -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -m state --state NEW -j ACCEPT
-
-		    iptables -A OUTPUT -d 127.0.0.1/32 -o lo -j ACCEPT
-
-		    iptables -A OUTPUT -d 127.0.0.1/32 -p tcp -m tcp --dport $trans_port --tcp-flags FIN,SYN,RST,ACK SYN -j ACCEPT
-
-		    iptables -A OUTPUT -j DROP
-
-		    iptables -P INPUT DROP
-		    iptables -P FORWARD DROP
-		    iptables -P OUTPUT DROP
-
-		;;
-
-		default)
-
-		    iptables -F
-		    iptables -X
-		    iptables -t nat -F
-		    iptables -t nat -X
-		    iptables -P INPUT ACCEPT
-		    iptables -P FORWARD ACCEPT
-		    iptables -P OUTPUT ACCEPT
-
-		    if ! [[ -f "${backup_dir}/iptables.backup" ]]; then
-		        iptables-restore < "${backup_dir}/iptables.backup"
-
-		    fi
-		;;
-	    esac
-	}
-	    check_root
-	    check_settings
-echo -e -n "\r     \r" && echo -n "  [▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ ] | %95"
-
-	    if systemctl is-active tor.service >/dev/null 2>&1; then
-		systemctl stop tor.service
-	    fi
-
-	    if ! cp -vf /etc/resolv.conf "$backup_dir/resolv.conf.backup" &> /dev/null ; then
-		die 
-	    fi
-
-	    printf "%s\\n" "nameserver 127.0.0.1" > /etc/resolv.conf
-	    sleep 1
-
-	    sysctl -w net.ipv6.conf.all.disable_ipv6=1 &> /dev/null
-	    sysctl -w net.ipv6.conf.default.disable_ipv6=1 &> /dev/null
-
-	    if systemctl start tor.service 2>/dev/null; then
-		sleep 1
-	    else
-		die
-	    fi
-
-	    setup_iptables tor_proxy
-	    clear
-	    state_banner
-echo -e -n "\r     \r" && echo "  You are under Whoami tunnel
-
-  [▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇] | %100
-"
-	    sleep 0.1 & pid=$(ps -o ppid= -p "$!") && echo "kill -9 $pid" > .whoami_pkill.sh 
-	    echo "echo "$oldname" > /etc/hostname" >> .whoami_pkill.sh 
-	    echo "echo "$oldnames" > /etc/hosts" >> .whoami_pkill.sh 
-	    echo "echo "$dns_backup" > /etc/resolv.conf" >> .whoami_pkill.sh 
-	    if [ $macok == "True" ] &>/dev/null; then
-		echo "ifconfig $macc down " >> .whoami_pkill.sh
-		echo "ifconfig $macc hw ether $oldmac" >> .whoami_pkill.sh 
-		echo "ifconfig $macc up" >> .whoami_pkill.sh 
-	    fi
-	    echo "timedatectl set-timezone $timezonebackup" >> .whoami_pkill.sh
-	    echo "  Press Ctrl+C for stopping Whoami " 
-	    ctrl_c_check="True"
-
+gen() {
+NUM="$(tr -dc '0-9a-f' </dev/urandom | head -c 2)"
+echo -n "$NUM:"
 }
 
-whoami_stop () {
-sleep 2
-clear
-state_banner
-echo -n "  Stage : Destroying System Logs
+for c in {1..6}; do
 
-  [▇                    ] | %5"
-sleep 2
-if
-	command &&
-	for log_killer in `locate *.log`; do
-    		echo "shred -vfzu $log_killer"
-    		echo "touch $log_killer" 
-	done > whoami_log_killer.sh
-	sudo bash whoami_log_killer.sh &> /dev/null
-	shred -vfzu whoami_log_killer.sh &> /dev/null  ; then
-sleep 0.1
+if [ "$c" -lt "6" ]; then
+	gen
+else
+	gen | tr -d ':'
+fi
+
+done
+}
+n=$[$n+1]
+out=$(RAND_MAC)
+echo $out	
+ip link set $IFACE down
+ip link set $IFACE address $out
+ip link set $IFACE up
+done &> /dev/null
+}
+
+if [ "$(dmidecode -s system-manufacturer)" == "innotek GmbH" ] || [ "$(dmidecode -s system-manufacturer)" == "VMware, Inc." ] &>/dev/null; then
+    if nmcli dev | grep wifi &>/dev/null; then   
+         for IFACE in $IFACES; do
+                if [ $IFACE != "lo" ] && [ $IFACE != "eth0" ]; then
+                     channger_func
+                fi
+         done
+    else
+   		warn "$notification_14"
+   	fi
 else 
-	echo "${Red}
-  There was a problem destroying the Whoami System Logs." && exit 1
-fi
-echo -e -n "\r     \r" && echo "  [▇▇▇                  ] | %10"
-sleep 2
-clear
-state_banner
-echo -n "  Stage : Restore HostName
-
-  [▇▇▇▇                 ] | %15"
-
-	sleep 1
-	echo $oldname > /etc/hostname
-	echo $oldnames > /etc/hosts
-	lastname=$(cat /etc/hostname)
-	if [ $oldname == $lastname ] &> /dev/null ; then
-		sleep 1
-	else
-		echo "
-  There was a problem restoring the Whoami HostName." && exit 1
-	fi
-echo -e -n "\r     \r" && echo -n "  [▇▇▇▇▇▇               ] | %25"
-sleep 2
-clear
-state_banner
-echo -n "  Stage : Restore system default DNS
-
-  [▇▇▇▇▇▇▇▇             ] | %40"
-sleep 2
-	echo $dns_backup > /etc/resolv.conf
-echo -e -n "\r     \r" && echo "  [▇▇▇▇▇▇▇▇▇▇           ] | %50"
-if [ $nwl == "True" ] &>/dev/null; then
-	sleep 0.1
-else
-		clear
-		state_banner
-echo -n "  Stage : Restore orginal MAC Address
-
-  [▇▇▇▇▇▇▇▇▇▇▇▇▇        ] | %65"
-		sleep 1
-		if ifconfig $macc down && ifconfig $macc hw ether $oldmac && ifconfig $macc up &> /dev/null ; then
-		smac=$(cat /sys/class/net/$macc/address)
-clear
-state_banner
-echo "  Stage : Restore orginal MAC Address.
-
-  [▇▇▇▇▇▇▇▇▇▇▇▇▇▇       ] | %75"
-			if [ $oldmac != $smac ] ; then
-				sleep 0.1
-			else
-				echo "
-  There was a problem restoring the Whoami MAC Address." && exit 1
-			fi
-		else
-			echo "
-  There was a problem restoring the Whoami MAC Address ." && exit 1
-		fi
+     for IFACE in $IFACES; do
+           if [ $IFACE != "lo" ] ; then
+                changer_func
+           fi
+      done
 fi
 
-sleep 2
-clear
-state_banner
-echo -n "  Stage : Restore orginal Time zone
+# timezone change
+info "$notification_15"
+timedatectl set-timezone UTC
+timedatectl set-timezone UTC &> /dev/null
 
-  [▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇      ] | %80"
+# configure transparent proxy for tor
+info "$notification_16"
+readonly tor_uid="$(id -u debian-tor)"
 
-timedatectl set-timezone $timezonebackup
-sleep 2
-echo -e -n "\r     \r" && echo "  [▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇     ] | %85"
-sleep 1
-clear
-state_banner
-echo -n "  Stage : Disable IP Address Hiding
+iptables -F
+iptables -X
+iptables -t nat -F
+iptables -t nat -X
 
-  [▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇  ] | %90"
+iptables -t nat -A OUTPUT -d 10.192.0.0/10 -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -j REDIRECT --to-ports 9040
 
-	    check_root
+iptables -t nat -A OUTPUT -d 127.0.0.1/32 -p udp -m udp --dport 53 -j REDIRECT --to-ports 5353
 
-	    setup_iptables default
+iptables -t nat -A OUTPUT -m owner --uid-owner $tor_uid -j RETURN
+iptables -t nat -A OUTPUT -o lo -j RETURN
 
-	    systemctl stop tor.service
+for lan in 127.0.0.0/8 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16; do
+	iptables -t nat -A OUTPUT -d $lan -j RETURN
+done
 
-	    if hash resolvconf 2>/dev/null; then
-		resolvconf -u
-	    else
-		cp -vf "$backup_dir/resolv.conf.backup" /etc/resolv.conf &> /dev/null
-	    fi
-echo -e -n "\r     \r" && echo "  [▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ ] | %95"
-	    sleep 2
-	    sysctl -w net.ipv6.conf.all.disable_ipv6=0 &> /dev/null
-	    sysctl -w net.ipv6.conf.default.disable_ipv6=0 &> /dev/null
+iptables -t nat -A OUTPUT -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -j REDIRECT --to-ports 9040
 
-	    cp -vf "$backup_dir/torrc.backup" /etc/tor/torrc &> /dev/null
-	    rm -Rf /usr/share/whoami &> /dev/null && rm -Rf /usr/share/whoami &> /dev/null && rm -Rf /usr/local/bin/whoami &> /dev/null
-clear
-state_banner
-echo "  You are not under whoami tunnel
+iptables -A INPUT -m state --state ESTABLISHED -j ACCEPT
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A INPUT -j DROP
 
-  [▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇] | %100
-"
-rm -fr .whoami_pkill.sh &> /dev/null
+iptables -A FORWARD -j DROP
 
-}
-trap ctrl_c INT
-function ctrl_c() {
+iptables -A OUTPUT -m conntrack --ctstate INVALID -j DROP
 
-if [ "$ctrl_c_check" != "True" ] ; then
-	echo -e -n '\r    \r' && sleep 0.1
-else
-	echo -e -n '\r    \r' && echo "${Red}  Ctrl+C Detected Whoami stopping"
-	whoami_stop
+iptables -A OUTPUT -m state --state INVALID -j DROP
+iptables -A OUTPUT -m state --state ESTABLISHED -j ACCEPT
+
+iptables -A OUTPUT -m owner --uid-owner $tor_uid -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -m state --state NEW -j ACCEPT
+
+iptables -A OUTPUT -d 127.0.0.1/32 -o lo -j ACCEPT
+
+iptables -A OUTPUT -d 127.0.0.1/32 -p tcp -m tcp --dport 9040 --tcp-flags FIN,SYN,RST,ACK SYN -j ACCEPT
+
+iptables -A OUTPUT -j DROP
+
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT DROP
+
+cat >"/etc/tor/torrc" <<EOF
+VirtualAddrNetworkIPv4 10.192.0.0/10
+AutomapHostsOnResolve 1
+TransPort 9040 IsolateClientAddr IsolateClientProtocol IsolateDestAddr IsolateDestPort
+SocksPort 9050
+DNSPort 5353
+EOF
+
+cat >"/etc/resolv.conf" <<EOF
+nameserver 127.0.0.1
+EOF
+
+systemctl --system daemon-reload
+
+if systemctl is-active tor.service >/dev/null 2>&1; then
+   systemctl stop tor.service
 fi
+
+sysctl -w net.ipv6.conf.all.disable_ipv6=1 &> /dev/null
+sysctl -w net.ipv6.conf.default.disable_ipv6=1 &> /dev/null
+systemctl start tor.service &>/dev/null
+msg "$notification_17"
 }
 
-root_privilege
-process_killer
+stop() {
+
+# detect language and check whoami status
+if   [ -e $BACKUPDIR/English ]; then
+     	English     
+elif [ -e $BACKUPDIR/Turkish ]; then
+     	Turkish
+else
+	err "$notification_18" && exit 1
+fi
+
+# restore all settings  
+info "$notification_19"
+restore_hostname=$(cat $BACKUPDIR/hostname.bak) 
+echo "127.0.0.1       localhost $restore_hostname
+::1             localhost ip6-localhost ip6-loopback
+fe00::0         ip6-localnet
+ff00::0         ip6-mcastprefix
+ff02::1         ip6-allnodes
+ff02::2         ip6-allrouters" > /etc/hosts 
+echo "$restore_hostname" > /etc/hostname
+        
+info "$notification_20"
+rm -f /etc/tor/torrc /etc/resolv.conf
+mv $BACKUPDIR/resolv.conf.bak /etc/resolv.conf
+	    
+info "$notification_21"
+for device in $(ls $MBACKUPDIR) ; do
+    ip link set $device down
+    ip link set $device address $(cat $MBACKUPDIR/$device)
+    ip link set $device up
+done
+info "$notification_22"
+restore_timezone=$(cat $BACKUPDIR/timezone.bak) && timedatectl set-timezone $restore_timezone
+
+info "$notification_23"
+mv $BACKUPDIR/torrc.bak /etc/tor/torrc
+iptables -F
+iptables -X
+iptables -t nat -F
+iptables -t nat -X
+iptables -P INPUT ACCEPT
+iptables -P FORWARD ACCEPT
+iptables -P OUTPUT ACCEPT
+systemctl stop tor.service
+iptables-restore <$BACKUPDIR/iptables.rules.bak
+sysctl -w net.ipv6.conf.all.disable_ipv6=0 &> /dev/null
+sysctl -w net.ipv6.conf.default.disable_ipv6=0 &> /dev/null
+
+rm -fr $BACKUPDIR/
+rm -fr $MBACKUPDIR/
+msg "$notification_24"
+
+}
+
+status() {
 banner
-requirements
-whoami_start
-sleep 9999d
+
+RADDR=$(curl -s ip-api.com | sed 's/\"//g;s/\,//g;s/{//g;s/}//g')
+TORSTATUS=$(systemctl is-active tor)
+ if [[ "${TORSTATUS}" == "active" ]]; then
+        msg "${TORSTATUS} (everything is OK)"
+    else
+        warn "${TORSTATUS} (dead)"
+    fi
+echo "$RADDR"
+}
+
+help() {
+banner
+
+echo "  --start  :   After choosing the language, it will make backups and start the program.
+  --stop   :   Closes the program using a backup.
+  --status :   Provides information about IP address and working status.
+  --help   :   This shows the menu."
+}
+
+main() {
+banner
+
+if [[ "$#" -eq 0 ]]; then
+    warn "Whoami: Argument required"
+    info "Run'whomai --help' for more information."
+    exit 1
+fi
+
+
+while [[ "$#" -gt 0 ]]; do
+    
+    # run with a root privilege
+    if [ $(id -u) -ne 0 ]; then
+         sudo bash whoami "$1" && exit 1
+
+    else 
+        sleep 0.1
+    fi
+    
+    case "$1" in
+    --start)
+        start  2> /dev/null && exit 1
+        ;;
+    --stop)
+        stop   2> /dev/null && exit 1 
+        ;;
+    --status)
+        status 2> /dev/null && exit 1
+        ;;
+    --help)
+        help
+        exit 1
+        ;;
+    -- | -* | *)
+        warn "Whoami: Invalid option '$1'"
+        info "Run 'whomai --help' parameter for more information."
+        exit 1
+        ;;
+    esac    
+    shift
+
+done
+}
+
+# call main
+main "${@}"
+
+# EOF
