@@ -1,7 +1,7 @@
 ![](logo.png) </br>
-# What's Whoami
+## What's Whoami
 
-The purpose of the Whoami tool is to make you as anonymous as possible on linux systems. It is user friendly with its ease of use and simple interface. It is ready to use after downloading, I will explain this in detail in the usage section. Finally, will don't forget that there is never a hundred percent security on the internet!
+### The purpose of the Whoami tool is to make you as anonymous as possible on linux systems. It is user friendly with its ease of use and simple interface. It is ready to use after downloading, I will explain this in detail in the usage section. Finally, will don't forget that there is never a hundred percent security on the internet! ###
  ---
   ## Features
  * Advanced log killer
@@ -10,7 +10,7 @@ The purpose of the Whoami tool is to make you as anonymous as possible on linux 
  * Fully autoamtic MAC changer
  * Timezone changer
  * IP changer
- ---
+ 
  ## Download
  Enter the following commands in order to download 
  ```bash
