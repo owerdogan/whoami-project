@@ -449,7 +449,7 @@ stop() {
 # detect language and check whoami status
 if   [ -e .English.txt ]; then
      	English     
-elif [ -e Turkish.txt ]; then
+elif [ -e .Turkish.txt ]; then
      	Turkish
 else
 	err "$notification_18" && exit 1
@@ -495,6 +495,7 @@ sysctl -w net.ipv6.conf.default.disable_ipv6=0 &> /dev/null
 
 rm -fr $BACKUPDIR/
 rm -fr $MBACKUPDIR/
+rm -fr .Turkish.txt || rm -fr .English.txt
 msg "$notification_24"
 
 }
