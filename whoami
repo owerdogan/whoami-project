@@ -101,7 +101,7 @@ notification_21=("Network interfaces' MAC addresses are restoring from backups..
 notification_22=("Time zone is setting as default...")
 notification_23=("IP address reverting to normal...")
 notification_24=("Whoami has been stopped. Be careful.")
-lang_t=$(touch $BACKUPDIR/English)
+lang_t=$(touch .English.txt)
 } 
         
 # Turkish
@@ -130,7 +130,7 @@ notification_21=("Ağ arayüzlerinin MAC adresleri yedeklerden geri yükleniyor.
 notification_22=("Zaman dilimi varsayılan olarak ayarlanıyor...")
 notification_23=("IP adresi normale döndürülüyor...")
 notification_24=("Whoami durduruldu. Dikkatli ol.")
-#lang_t=$(touch $BACKUPDIR/Turkish.txt)
+lang_t=$(touch .Turkish.txt)
 }       
 
 # whoami start functions
@@ -447,9 +447,9 @@ msg "$notification_17"
 stop() {
 
 # detect language and check whoami status
-if   [ -e $BACKUPDIR/English ]; then
+if   [ -e .English.txt ]; then
      	English     
-elif [ -e $BACKUPDIR/Turkish ]; then
+elif [ -e Turkish.txt ]; then
      	Turkish
 else
 	err "$notification_18" && exit 1
