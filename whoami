@@ -184,7 +184,7 @@ else err "$notification_2"
 fi
     
 # check and install tor
-if dpkg -l |grep tor &> /dev/null ; then
+if tor -h &> /dev/null ; then
 	 sleep 0.1
 else warn "$notification_3"
      if apt-get install tor -y &> /dev/null ; then
