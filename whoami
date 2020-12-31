@@ -81,26 +81,24 @@ notification_1=("Whoami is already running!")
 notification_2=("Check your internet connection and try again!")
 notification_3=("Tor is not installed on your system. Setup is starting!")
 notification_4=("Tor could not be installed on your system!")
-notification_5=("Sdmem is not installed on your system. Setup is starting!")
-notification_6=("Sdmem could not be installed on your system!")
-notification_7=("Backup is starting...")
-notification_8=("System log files are destroying...")
-notification_9=("Memory and RAM are being clearing...")
-notification_10=("Memory cleaning has been disabled for the virtual machine!")
-notification_11=("Changing the hostname...")
-notification_12=("Anonymous DNS servers are setting up...")
-notification_13=("The MAC Address of all network interfaces is changing...")
-notification_14=("The proper network interface could not be detected. Whoami continues to the next step...")
-notification_15=("Time zone is setting to UTC...")
-notification_16=("IP address is changing anonymously...")
-notification_17=("Anonymization successful. Who are you?")
-notification_18=("Whoami is not working anyway")
-notification_19=("Restoring hostname from backups...")
-notification_20=("DNS servers restoring from backups...")
-notification_21=("Network interfaces' MAC addresses are restoring from backups...")
-notification_22=("Time zone is setting as default...")
-notification_23=("IP address reverting to normal...")
-notification_24=("Whoami has been stopped. Be careful.")
+notification_5=("Backup is starting...")
+notification_6=("System log files are destroying...")
+notification_7=("Please wait this process may take some time...")
+notification_8=("Clearing cache...")
+notification_9=("Changing the hostname...")
+notification_10=("Anonymous DNS servers are setting up...")
+notification_11=("The MAC Address of all network interfaces is changing...")
+notification_12=("The proper network interface could not be detected. Whoami continues to the next step...")
+notification_13=("Time zone is setting to UTC...")
+notification_14=("IP address is changing anonymously...")
+notification_15=("Anonymization successful. Who are you?")
+notification_16=("Whoami is not working anyway")
+notification_17=("Restoring hostname from backups...")
+notification_18=("DNS servers restoring from backups...")
+notification_19=("Network interfaces' MAC addresses are restoring from backups...")
+notification_20=("Time zone is setting as default...")
+notification_21=("IP address reverting to normal...")
+notification_22=("Whoami has been stopped. Be careful.")
 lang_t=$(touch .English.txt)
 } 
         
@@ -110,26 +108,24 @@ notification_1=("Whoami zaten çalışıyor!")
 notification_2=("İnternet bağlantınızı kontrol edip yeniden deneyin!")
 notification_3=("Tor sisteminizde kurulu değil. Kurulum başlatılıyor!")
 notification_4=("Tor sisteminize kurulamadı!")
-notification_5=("Sdmem sisteminizde kurulu değil. Kurulum başlatılıyor!")
-notification_6=("Sdmem sisteminize kurulamadı!")
-notification_7=("Yedekleme başlatılıyor...")
-notification_8=("Sistem log dosyaları yok ediliyor...")
-notification_9=("Bellek ve RAM temizleniyor...")
-notification_10=("Bellek temizleme sanal makine için devre dışı bıraldı!")
-notification_11=("Hostname değiştiriliyor...")
-notification_12=("Anonim DNS sunucuları ayarlarlanıyor...")
-notification_13=("Tüm ağ arayüzlerinin MAC Adresi değiştiriliyor...")
-notification_14=("Uygun ağ arayüzü tespit edilemedi. Whoami bir sonraki adıma geçiyor...")
-notification_15=("Zaman dilimi UTC olarak ayarlanıyor...")
-notification_16=("IP adresi anonim olarak gizleniyor...")
-notification_17=("Anonimleştirmme başarılı. Sen kimsin?")
-notification_18=("Whoami zaten çalışmıyor !")
-notification_19=("Hostname yedeklerden geri yükleniyor...")
-notification_20=("DNS sunucuları yedeklerden geri yükleniyor...")
-notification_21=("Ağ arayüzlerinin MAC adresleri yedeklerden geri yükleniyor...")
-notification_22=("Zaman dilimi varsayılan olarak ayarlanıyor...")
-notification_23=("IP adresi normale döndürülüyor...")
-notification_24=("Whoami durduruldu. Dikkatli ol.")
+notification_5=("Yedekleme başlatılıyor...")
+notification_6=("Sistem log dosyaları yok ediliyor...")
+notification_7=("Bu işlem biraz zaman alabilir lütfen bekleyin...")
+notification_8=("Önbellek temizleniyor...")
+notification_9=("Hostname değiştiriliyor...")
+notification_10=("Anonim DNS sunucuları ayarlarlanıyor...")
+notification_11=("Tüm ağ arayüzlerinin MAC Adresi değiştiriliyor...")
+notification_12=("Uygun ağ arayüzü tespit edilemedi. Whoami bir sonraki adıma geçiyor...")
+notification_13=("Zaman dilimi UTC olarak ayarlanıyor...")
+notification_14=("IP adresi anonim olarak gizleniyor...")
+notification_15=("Anonimleştirmme başarılı. Sen kimsin?")
+notification_16=("Whoami zaten çalışmıyor !")
+notification_17=("Hostname yedeklerden geri yükleniyor...")
+notification_18=("DNS sunucuları yedeklerden geri yükleniyor...")
+notification_19=("Ağ arayüzlerinin MAC adresleri yedeklerden geri yükleniyor...")
+notification_20=("Zaman dilimi varsayılan olarak ayarlanıyor...")
+notification_21=("IP adresi normale döndürülüyor...")
+notification_22=("Whoami durduruldu. Dikkatli ol.")
 lang_t=$(touch .Turkish.txt)
 }       
 
@@ -197,17 +193,7 @@ else warn "$notification_3"
      fi
 fi
 
-# check and install sdmem
-if dpkg -l |grep secure-delete &> /dev/null ; then
-	 sleep 0.1
-else warn "$notification_5"
-     if apt-get install secure-delete  -y &> /dev/null ; then
-	    sleep 0.1
-     else err "$notification_6" && exit 1
-     fi
-fi
-
-info "$notification_7"
+info "$notification_5"
 
 # backup hostname
 cat /etc/hostname > $BACKUPDIR/hostname.bak
@@ -233,7 +219,7 @@ mv "$TORRC" $BACKUPDIR/torrc.bak
 iptables-save > $BACKUPDIR/iptables.rules.bak
 
 # clean system logs
-info "$notification_8"
+info "$notification_6"
 python - <<END
 import os
 
@@ -250,6 +236,7 @@ for x in possible_logs_list:
 		os.system(clean_detected_logs)
 			
 END
+	info "$notification_7"
 	command &&
 		for logs in `find / -name "*.log"`; do
 				shred -vfzu $logs 
@@ -258,7 +245,7 @@ END
 		shred -vfzu Authentication.log Log.log Test Tests.log &> /dev/null
 
 # memory and ram wipe
-info "$notification_9"
+info "$notification_8"
 swapoff -a 
 swapon -a 
 echo 1024 >/proc/sys/vm/min_free_kbytes
@@ -266,14 +253,9 @@ echo 3 >/proc/sys/vm/drop_caches
 echo 1 >/proc/sys/vm/oom_kill_allocating_task
 echo 1 >/proc/sys/vm/overcommit_memory
 echo 0 >/proc/sys/vm/oom_dump_tasks
-if [ "$(dmidecode -s system-manufacturer)" == "innotek GmbH" ] || [ "$(dmidecode -s system-manufacturer)" == "VMware, Inc." ] &>/dev/null; then
-	warn "$notification_10"
-else
-	sdmem -fll &> /dev/null 
-fi
 
 # hostname change
-info "$notification_11"
+info "$notification_9"
 array[0]="Windows10-Enterprise "
 array[1]="Windows10-Pro"
 array[2]="Windows10-Enterprise-LTSC "
@@ -303,7 +285,7 @@ ff02::2         ip6-allrouters" > /etc/hosts
 echo "${array[$index]}" > /etc/hostname
 
 # configure nameservers
-info "$notification_12"
+info "$notification_10"
 cat >"/etc/resolv.conf" <<EOF
 # generated by whoami
 nameserver 1.1.1.1
@@ -318,7 +300,7 @@ EOF
     chmod 644 /etc/resolv.conf
 
 # check virtual machine and change mac address
-info "$notification_13"
+info "$notification_11"
 IFACES=$(ip -o link show | awk -F': ' '{print $2}')
 
 changer_func(){
@@ -360,7 +342,7 @@ if [ "$(dmidecode -s system-manufacturer)" == "innotek GmbH" ] || [ "$(dmidecode
                 fi
          done
     else
-   		warn "$notification_14"
+   		warn "$notification_12"
    	fi
 else 
      for IFACE in $IFACES; do
@@ -371,12 +353,12 @@ else
 fi
 
 # timezone change
-info "$notification_15"
+info "$notification_13"
 timedatectl set-timezone UTC
 timedatectl set-timezone UTC &> /dev/null
 
 # configure transparent proxy for tor
-info "$notification_16"
+info "$notification_14"
 readonly tor_uid="$(id -u debian-tor)"
 
 iptables -F
@@ -441,7 +423,7 @@ fi
 sysctl -w net.ipv6.conf.all.disable_ipv6=1 &> /dev/null
 sysctl -w net.ipv6.conf.default.disable_ipv6=1 &> /dev/null
 systemctl start tor.service &>/dev/null
-msg "$notification_17"
+msg "$notification_15"
 }
 
 stop() {
@@ -452,11 +434,11 @@ if   [ -e .English.txt ]; then
 elif [ -e .Turkish.txt ]; then
      	Turkish
 else
-	err "$notification_18" && exit 1
+	err "$notification_16" && exit 1
 fi
 
 # restore all settings  
-info "$notification_19"
+info "$notification_17"
 restore_hostname=$(cat $BACKUPDIR/hostname.bak) 
 echo "127.0.0.1       localhost $restore_hostname
 ::1             localhost ip6-localhost ip6-loopback
@@ -466,20 +448,20 @@ ff02::1         ip6-allnodes
 ff02::2         ip6-allrouters" > /etc/hosts 
 echo "$restore_hostname" > /etc/hostname
         
-info "$notification_20"
+info "$notification_18"
 rm -f /etc/tor/torrc /etc/resolv.conf
 mv $BACKUPDIR/resolv.conf.bak /etc/resolv.conf
 	    
-info "$notification_21"
+info "$notification_19"
 for device in $(ls $MBACKUPDIR) ; do
     ip link set $device down
     ip link set $device address $(cat $MBACKUPDIR/$device)
     ip link set $device up
 done
-info "$notification_22"
+info "$notification_20"
 restore_timezone=$(cat $BACKUPDIR/timezone.bak) && timedatectl set-timezone $restore_timezone
 
-info "$notification_23"
+info "$notification_21"
 mv $BACKUPDIR/torrc.bak /etc/tor/torrc
 iptables -F
 iptables -X
@@ -496,7 +478,7 @@ sysctl -w net.ipv6.conf.default.disable_ipv6=0 &> /dev/null
 rm -fr $BACKUPDIR/
 rm -fr $MBACKUPDIR/
 rm -fr .Turkish.txt || rm -fr .English.txt
-msg "$notification_24"
+msg "$notification_22"
 
 }
 
