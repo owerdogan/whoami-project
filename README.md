@@ -1,5 +1,5 @@
 ![](logo.png) </br>
-![](https://img.shields.io/github/v/release/omer-dogan/whoami?color=black&style=flat-square) ![](https://img.shields.io/github/last-commit/omer-dogan/whoami?color=black)  ![](https://img.shields.io/github/languages/code-size/omer-dogan/whoami?color=black&style=flat-square) ![](https://img.shields.io/github/downloads/omer-dogan/whoami/v1.4.0-beta/total?color=black&style=flat-square)
+![](https://img.shields.io/github/v/release/omer-dogan/whoami?color=black&style=flat-square) ![](https://img.shields.io/github/last-commit/omer-dogan/whoami?color=black)  ![](https://img.shields.io/github/languages/code-size/omer-dogan/whoami?color=black&style=flat-square)
 ## What's Whoami
 #### The purpose of the Whoami tool is to make you as anonymous as possible on linux systems. It is user friendly with its ease of use and simple interface. It is ready to use after downloading, I will explain this in detail in the usage section. Finally, will don't forget that there is never a hundred percent security on the internet!
   ## Features
