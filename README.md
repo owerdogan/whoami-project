@@ -6,7 +6,7 @@
  * Advanced log killer
  * Memory and RAM cleaner
  * Hostname changer
- * Fully autoamtic MAC changer
+ * Fully automatic MAC changer
  * Timezone changer
  * IP changer
  
