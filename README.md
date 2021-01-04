@@ -11,23 +11,25 @@
  * IP changer
  
  ## Download
- Enter the following commands in order to download 
+ To download you have to type this command. Whoami requirements will be installed automatically.
  ```bash
  git clone https://github.com/omer-dogan/whoami
  ```
  ## Parameters
  ### Start
- To run after downloading. This command starts all processes. Disables some features depending on the situation.
+ Whoami asks you to choose your language, and then any missing requirements are checked. The missing ones are downloaded automatically and then 6 features are run sequentially fully automatically.(The configs changed in the system are backed up and used to restore at the stop stage.)
  ```bash
  cd whoami
  sudo bash whoami --start (or bash whoami --start but this is not recommended)
  ```
+ ![](https://media0.giphy.com/media/mhQQACxMYKBKovBgAG/giphy.gif)
  ### Stop
-This command stops all processes using backups
+ Restores all settings using previously backed up system configurations and whoami completely turns off
 ```bash
  cd whoami
  sudo bash whoami --stop (or bash whoami --stop but this is not recommended)
  ```
+ ![](https://media.giphy.com/media/g4lDXt6FyAGQKqreY8/giphy.gif)
   ### Status
  This command shows the whoami status and detailed ip address
  ```bash
