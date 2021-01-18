@@ -129,6 +129,33 @@ notification_22=("Whoami durduruldu. Dikkatli ol.")
 lang_t=$(touch .Turkish.txt)
 }       
 
+# Spanish
+Spanish() {
+notification_1=("¡Whoami ya está siendo ejecutado!")
+notification_2=("¡Revisa tu conexión a internet e inténtalo de nuevo!")
+notification_3=("Tor no está instalado en tu sistema. ¡Preparando la instalación!")
+notification_4=("¡Tor no pudo ser instalado en tu sistema!")
+notification_5=("El backup está iniciándose...")
+notification_6=("Se están eliminando archivos de registro del sistema...")
+notification_7=("Espera, por favor. Este proceso puede tardar un poco...")
+notification_8=("Limpiando el caché...")
+notification_9=("Cambiando el nombre del host...")
+notification_10=("Se están configurando los servidores DNS anónimos...")
+notification_11=("La dirección MAC de todas las interfaces de la red está cambiando...")
+notification_12=("No se pudo detectar la interfaz de red apropiada. Whoami saltará al siguiente paso...")
+notification_13=("Se está ajustando la zona horaria a UTC...")
+notification_14=("La dirección IP está cambiando anónimamente...")
+notification_15=("Anonimización satisfactoria. ¿Quién eres?")
+notification_16=("Whoami no está funcionando.")
+notification_17=("Restaurando el nombre del host desde los backups...")
+notification_18=("Restaurando los servidores DNS desde los backups...")
+notification_19=("Restaurando las direcciones MAC de las interfaces de la red desde los backups...")
+notification_20=("Se está ajustando la zona horaria por defecto...")
+notification_21=("Revirtiendo la dirección IP a la normalidad...")
+notification_22=("Whoami ha parado su ejecución. Ten cuidado.")
+lang_t=$(touch .Spanish.txt)
+}
+
 # whoami start functions
 start() {
 
@@ -143,6 +170,7 @@ msg "Select a language to continue
 
 [1] English
 [2] Türkçe
+[3] Español
 "
 n=0
 until [ $n -ge 99 ]
@@ -158,6 +186,10 @@ elif [ $lang == 1 ]; then
          
 elif [ $lang == 2 ]; then
       Turkish
+      break
+      
+elif [ $lang == 3 ]; then
+      Spanish
       break
           
 else
@@ -433,6 +465,8 @@ if   [ -e .English.txt ]; then
      	English     
 elif [ -e .Turkish.txt ]; then
      	Turkish
+elif [ -e .Spanish.txt ]; then
+	Spanish
 else
 	err "$notification_16" && exit 1
 fi
