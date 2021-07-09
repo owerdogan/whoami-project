@@ -1,0 +1,89 @@
+#!/bin/bash
+
+start_mac_changer(){
+
+source /usr/share/kali-whoami/assets/sources/config
+
+if [[ "$mac_changer_status" == "Disable" ]]; then
+
+	# backup mac addresses
+	if [ ! -d $BACKUPDIR/mac_addresses ];then
+		mkdir $BACKUPDIR/mac_addresses
+	fi
+	IFACES=$(ip -o link show | awk -F': ' '{print $2}')
+	    for IFACE in $IFACES; do
+		if [ $IFACE != "lo" ]; then
+		    cat /sys/class/net/$IFACE/address > $BACKUPDIR/mac_addresses/$IFACE
+		fi
+	    done
+
+	# check virtual machine and change mac address
+	IFACES=$(ip -o link show | awk -F': ' '{print $2}')
+
+	changer_func(){
+	while :
+	do
+	command &&
+	RAND_MAC() {
+
+	gen() {
+	NUM="$(tr -dc '0-9a-f' </dev/urandom | head -c 2)"
+	echo -n "$NUM:"
+	}
+
+	for c in {1..6}; do
+
+	if [ "$c" -lt "6" ]; then
+		gen
+	else
+		gen | tr -d ':'
+	fi
+
+	done
+	}
+	out=$(RAND_MAC)
+	ip link set $IFACE down
+	if ip link set $IFACE address $out ; then
+		ip link set $IFACE up
+		break
+	fi	
+	done
+	sed -i 's/mac_changer_status="Disable"/mac_changer_status="Enable"/g' $SRCDIR/sources/config
+	info "Dns changer successfully enabled"
+	}
+
+	if [ "$(dmidecode -s system-manufacturer)" == "innotek GmbH" ] || [ "$(dmidecode -s system-manufacturer)" == "VMware, Inc." ] &>/dev/null; then
+	    if nmcli dev | grep wifi &>/dev/null; then   
+		 for IFACE in $IFACES; do
+		        if [ $IFACE != "lo" ] && [ $IFACE != "eth0" ]; then
+		             channger_funcs
+		        fi
+		 done
+	    else
+	   		warn "The virtual machine was detected, but no network interface was found to be suitable for changing mac addresses"
+	   	fi
+	else 
+	     for IFACE in $IFACES; do
+		   if [ $IFACE != "lo" ] ; then
+		        changer_func
+		   fi
+	      done
+	fi
+else
+	warn "Mac changer is already running"
+fi
+}
+
+
+stop_mac_changer(){
+
+	source /usr/share/kali-whoami/assets/sources/config
+	for device in $(ls $BACKUPDIR/mac_addresses) ; do
+	    ip link set $device down
+	    ip link set $device address $(cat $BACKUPDIR/mac_addresses/$device)
+	    ip link set $device up
+	done
+	rm -fr $BACKUPDIR/backups/mac_addresses && sed -i 's/mac_changer_status="Enable"/mac_changer_status="Disable"/g' $SRCDIR/sources/config
+	info "Mac successfully disabled"
+
+}

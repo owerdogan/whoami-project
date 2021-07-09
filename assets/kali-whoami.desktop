@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Kali Whoami
+Encoding=UTF-8
+Exec=/usr/share/kali-menu/exec-in-shell "sudo kali-whoami --help"
+Icon=/usr/share/kali-whoami/assets/icons/kali-whoami.png
+StartupNotify=false
+Terminal=true
+Type=Application
+X-Kali-Package=kali-whoami

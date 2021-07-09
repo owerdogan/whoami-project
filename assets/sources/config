@@ -1,0 +1,66 @@
+#!/bin/bash
+
+# colors
+RESET="\e[0m"
+YELLOW="\e[33m"
+BOLD="\e[1m"
+RED="\e[31m"
+GREEN='\033[0;36m'
+BLUE='\033[1;32m'
+BLUEB='\033[30;106m'
+
+# backup dir
+BACKUPDIR="/usr/share/kali-whoami/backups"
+SRCDIR="/usr/share/kali-whoami/assets"
+
+# tor config file
+TORRC="/etc/tor/torrc"
+tor_uid="$(id -u debian-tor)"
+
+#Defaults
+anti_mitm_status="Disable"
+ip_changer_status="Disable"
+dns_changer_status="Disable"
+mac_changer_status="Disable"
+timezone_changer_status="Disable"
+hostname_changer_status="Disable"
+browser_anonymization_status="Disable"
+anti_mitm_pid="0"
+
+# print error and exit
+err() {
+    echo -e "${RED}[-]${RESET} ${@}"
+    exit 1
+}
+
+# print warning
+warn() {
+    echo -e "${YELLOW}[!]${RESET} ${@}"
+}
+
+# print message
+msg() {
+    echo -e "${GREEN}[+]${RESET} ${@}"
+}
+
+# print info
+info() {
+    echo -e "${BLUE}[*]${RESET} ${@}"
+}
+
+# read input
+input() {
+echo -ne "
+${BLUEB}:: Select the options you want and then press enter ::${RESET}${GREEN}\n\n┌─[whoami]─[~]\n└─╼ $ ${RESET}"
+}
+
+# print banner
+banner() {
+clear
+echo -e "${GREEN}  ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+                 __
+      |  | |__| /  \  /\   |\/| |
+      |/\| |  | \__/ /~~\  |  | |
+  ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+${RESET}"
+}

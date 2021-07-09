@@ -1,0 +1,29 @@
+#!/bin/bash
+
+start_browser_anonymization(){
+
+source /usr/share/kali-whoami/assets/sources/config
+
+# check and configure browser anonymity settings
+if [[ "$browser_anonymization_status" == "Disable" ]]; then
+   if [ -d /etc/firefox-esr ]; then
+    	cp $SRCDIR/sources/whoami.js /etc/firefox-esr/
+	sed -i 's/browser_anonymization_status="Disable"/browser_anonymization_status="Enable"/g' $SRCDIR/sources/config
+	info "Browser anonymization successfully enabled"
+   else
+	warn "Browser anonymization only supports firefox and firefox not found on your system"
+   fi
+else
+   warn "Browser anonymization is already running"
+fi
+
+}
+
+stop_browser_anonymization(){
+
+	source /usr/share/kali-whoami/assets/sources/config
+	rm -fr /etc/firefox-esr/whoami.js
+	sed -i 's/browser_anonymization_status="Enable"/browser_anonymization_status="Disable"/g' $SRCDIR/sources/config
+	info "Browser anonymization successfully disabled"
+
+}
