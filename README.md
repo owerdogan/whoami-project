@@ -8,9 +8,9 @@
     <br />
     <a href="https://github.com/omer-dogan/kali-whoami#demo">View Demo</a>
     ·
-    <a href="https://github.com/omer-dogan/kali-whoami/issues">Report Bug</a>
+    <a href="https://github.com/omer-dogan/kali-whoami/issues/new?assignees=omer-dogan&labels=bug&template=bug_report.md&title=Bug">Report Bug</a>
     ·
-    <a href="https://github.com/omer-dogan/kali-whoami/issues">Request Feature</a>
+    <a href="https://github.com/omer-dogan/kali-whoami/issues/new?assignees=omer-dogan&labels=enhancement&template=feature_request.md&title=Feature+Request">Request Feature</a>
   </p>
 </p>
 
