@@ -39,22 +39,22 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-The purpose of the Whoami tool makes you as anonymous as possible on Kali linux. It is an user friendly with its ease of use and simple interface.
+The purpose of the Whoami tool makes you as anonymous as possible on Kali linux. It is user-friendly with its ease of use and simple interface.
 It follows two different paths to ensure the highest possible level of anonymity. 
 
 Finally, don't forget that there is never a hundred percent security on the internet!
 
 <!-- FEATURES -->
 ## Features
- * Anti mitm
- * Log killer
- * IP changer
- * Dns changer
- * Mac changer
- * Anti cold boot
- * Timezone changer
- * Hostname changer
- * Browser anonymization
+ * Anti-MITM
+ * Log Killer
+ * IP Changer
+ * DNS Changer
+ * MAC Changer
+ * Anti Cold Boot
+ * Timezone Changer
+ * Hostname Changer
+ * Browser Anonymization
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -84,7 +84,7 @@ And that's it, now you're ready to fire up the tool!
 
 <!-- USAGE EXAMPLES -->
 ## Usage
- After completing setup, run the application by typing "Kali Whoami" in the search menu or by typing "sudo kali-whoami --help" in a terminal 
+ After completing setup, run the application by typing "Kali Whoami" in the search menu or by typing `sudo kali-whoami --help` in a terminal 
 
    ```
 [+] Usage : sudo kali-whoami [option]
