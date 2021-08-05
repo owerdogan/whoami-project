@@ -6,7 +6,7 @@
 ![](https://img.shields.io/github/v/release/omer-dogan/whoami?color=black&style=flat-square) ![](https://img.shields.io/github/last-commit/omer-dogan/whoami?color=black)  ![](https://img.shields.io/github/languages/code-size/omer-dogan/whoami?color=black&style=flat-square)
 
   <p align="center">  
-    Quıck Menu
+    Quick Menu
     <br />
     <a href="https://github.com/omer-dogan/kali-whoami#demo">View Demo</a>
     ·
@@ -77,7 +77,12 @@ So let's see what we need before installation and how we can download it.
    ```sh
    git clone https://github.com/omer-dogan/kali-whoami
    ```
-2. Install makefile
+2. Change directory
+ 
+   ```sh
+   cd kali-whoami
+   ```
+3. Install makefile
  
    ```sh
    sudo make install
