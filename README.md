@@ -1,4 +1,4 @@
-# The project is being recoded to support all operating systems, and for new updates (Progress: %20 completed)
+# The project is being recoded to support all operating systems and for new updates (Progress: %20 completed)
 
 <!-- PROJECT LOGO -->
 ![whoami-banner](https://user-images.githubusercontent.com/59175356/124522019-530f3480-ddfa-11eb-8e8b-a678b01b9254.PNG)
