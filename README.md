@@ -1,4 +1,8 @@
-# The project is being recoded to support all operating systems and for new updates (Progress: %47 completed)
+# The project is being recoded to support all operating systems and for new updates
+### About the upcoming whoami release
+* Update progress: %49 completed 
+* Next release codename: 3388
+* Special thanks to 3388 for contributions to user interface design
 
 <!-- PROJECT LOGO -->
 ![whoami-banner](https://user-images.githubusercontent.com/59175356/124522019-530f3480-ddfa-11eb-8e8b-a678b01b9254.PNG)
