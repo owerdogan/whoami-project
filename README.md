@@ -2,7 +2,6 @@
 ### About the upcoming whoami release
 * Update progress: %61 completed 
 * Next release codename: 3388
-* Special thanks to 3388 for contributions to user interface design
 
 <!-- PROJECT LOGO -->
 ![whoami-banner](https://user-images.githubusercontent.com/59175356/124522019-530f3480-ddfa-11eb-8e8b-a678b01b9254.PNG)
