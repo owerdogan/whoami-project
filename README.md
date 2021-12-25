@@ -1,7 +1,7 @@
 # The project is being recoded to support all operating systems and for new updates
 ### About the upcoming whoami release
 * Update progress: %65 completed 
-* Stage: Redesigning website
+* Stage: Code is being integrated with python
 * Next release codename: 3388
 
 <!-- PROJECT LOGO -->
