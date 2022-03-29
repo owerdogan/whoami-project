@@ -1,8 +1,9 @@
 # The project is being recoded to support all operating systems and for new updates
 ### About the upcoming whoami release 
 * Update progress: %80 completed 
-* Stage: Code is being integrated with python (the whole update will be released in june or july)
 * Next release codename: 3388
+* Stage: Code is being integrated with python (the whole update will be released in june or july)
+* Changelog : Python integration completed some new features are being developed
 
 <!-- PROJECT LOGO -->
 ![whoami-banner](https://user-images.githubusercontent.com/59175356/124522019-530f3480-ddfa-11eb-8e8b-a678b01b9254.PNG)
