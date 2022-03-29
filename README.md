@@ -1,9 +1,5 @@
-# The project is being recoded to support all operating systems and for new updates
-### About the upcoming whoami release 
-* Update progress: %80 completed 
-* Next release codename: 3388
-* Stage: Code is being integrated with python (the whole update will be released in june or july)
-* Changelog : Python integration completed some new features are being developed
+## The project is being recoded to support all operating systems and for new updates. <a href="#about-the-upcoming-whoami-release">Click here for more information</a>
+
 
 <!-- PROJECT LOGO -->
 ![whoami-banner](https://user-images.githubusercontent.com/59175356/124522019-530f3480-ddfa-11eb-8e8b-a678b01b9254.PNG)
@@ -106,6 +102,15 @@ And that's it, now you're ready to fire up the tool!
 <!-- Demo --> 
 ## Demo
 ![](https://user-images.githubusercontent.com/59175356/124754970-cc8d4c80-def8-11eb-8606-02c6cdd7f5a2.gif)
+
+<!-- CHANGELOG -->
+## About the upcoming whoami release 
+* Update progress: %80 completed 
+* Next release codename: 3388
+* Stage: Code is being integrated with python (the whole update will be released in june or july)
+* Changelog : Python integration completed some new features are being developed
+
+![demo](https://user-images.githubusercontent.com/59175356/160588497-0a5a0de0-cc70-4f21-89e4-996b6119d0ea.png)
 
 <!-- LICENSE -->
 ## License
