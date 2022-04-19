@@ -1,66 +1,99 @@
 ## The project is being recoded to support all operating systems and for new updates. <a href="#about-the-upcoming-whoami-release">Click here for more information</a>
 
-
 <!-- PROJECT LOGO -->
-![whoami-banner](https://user-images.githubusercontent.com/59175356/124522019-530f3480-ddfa-11eb-8e8b-a678b01b9254.PNG)
-  
-![](https://img.shields.io/github/v/release/omer-dogan/whoami?color=black&style=flat-square) ![](https://img.shields.io/github/last-commit/omer-dogan/whoami?color=black)  ![](https://img.shields.io/github/languages/code-size/omer-dogan/whoami?color=black&style=flat-square)
+<h1 align="center">
+  <br>
+  <a href="http:/whoamiproject.tech"><img src="https://user-images.githubusercontent.com/59175356/160829133-b140e801-8e1e-4255-9277-7ab05ae3640d.png" alt="Whoami" width="200"></a>
+</h1>
 
-  <p align="center">  
-    Quıck Menu
-    <br />
-    <a href="https://github.com/omer-dogan/kali-whoami#demo">View Demo</a>
-    ·
-    <a href="https://github.com/omer-dogan/kali-whoami/issues/new?assignees=omer-dogan&labels=bug&template=bug_report.md&title=Bug">Report Bug</a>
-    ·
-    <a href="https://github.com/omer-dogan/kali-whoami/issues/new?assignees=omer-dogan&labels=enhancement&template=feature_request.md&title=Feature+Request">Request Feature</a>
-  </p>
+<h4 align="center"> <a href="http:/whoamiproject.tech" target="_blank">Whoami</a> provides enhanced privacy, anonymity for Debian and Arch based linux distributions</h4>
+
+<p align="center">
+ <a href="https://github.com/omer-dogan/kali-whoami/issues/new?assignees=omer-dogan&labels=enhancement&template=feature_request.md&title=Feature+Request">Feature request</a> -
+ <a href="https://github.com/omer-dogan/kali-whoami/issues/new?assignees=omer-dogan&labels=bug&template=bug_report.md&title=Bug">Bug report</a>
 </p>
 
-<!-- TABLE OF CONTENTS -->
-<details open="open">
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#features">Features</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>   
-    <li><a href="#license">License</a></li>
-
-  </ol>
-</details>
-
+<p align="center">
+  <a href="http:/whoamiproject.tech">
+    <img src="https://img.shields.io/github/v/release/omer-dogan/whoami?color=black&style=for-the-badge">
+  </a>
+  <a href="http:/whoamiproject.tech">
+    <img src="https://img.shields.io/github/license/owerdogan/whoami-project?color=black&style=for-the-badge">
+  </a>
+  <a href="http:/whoamiproject.tech">
+    <img src="https://img.shields.io/github/languages/code-size/omer-dogan/whoami?color=black&style=for-the-badge">
+  </a>
+  <a href="http:/whoamiproject.tech">
+    <img src="https://img.shields.io/github/last-commit/omer-dogan/whoami?color=black&style=for-the-badge">
+  </a>
+</p>
+  
 <!-- ABOUT THE PROJECT -->
-## About The Project
+<h2 align="center">About the project</h2>
 
-The purpose of the Whoami tool makes you as anonymous as possible on Kali linux. It is an user friendly with its ease of use and simple interface.
-It follows two different paths to ensure the highest possible level of anonymity. 
+__In its simplest and shortest definition, Whoami is a user friendly privacy/anonymity tool with its ease of use and simple interface.__
+Whoami uses __9+__ different modules to ensure the highest possible level of anonymity also solves possible problems without disturbing you with the __Bug fixer__ module, which is in development.
+You can find the <a href="#modules">descriptions of the modules below</a> and more detailed information on the website.
 
 Finally, don't forget that there is never a hundred percent security on the internet!
 
-<!-- FEATURES -->
-## Features
- * Anti mitm
- * Log killer
- * IP changer
- * Dns changer
- * Mac changer
- * Anti cold boot
- * Timezone changer
- * Hostname changer
- * Browser anonymization
+<!-- MDOULES -->
+<h2 align="center">Modules</h2>
+
+<h4 align="center">See the documentation section on the website for detailed information about <a href="http:/whoamiproject.tech" target="_blank">modules</a></h4>
+<table align="center">
+    <thead>
+    <tr>
+      <th align="center"><img width="225" height="0"> <p>Module name</p></th>
+      <th align="center"><img width="225" height="0"> <p>Description</p></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Anti mitm</td>
+       <td>Automatically bans the attacker when you come under a Man In The Middle attack</td>
+    </tr>
+    <tr>
+      <td>Log killer</td> 
+       <td>Destroys the log files in system with the overwrite method</td>
+    </tr>
+    <tr>
+      <td>IP changer</td>
+       <td>Hides your real ip address by redirecting all network traffic to tor transparent proxy</td>
+    </tr>
+    <tr>
+      <td>Dns change</td>
+       <td>Replaces the default dns servers provided by your isp with privacy based servers</td>
+    </tr>
+    <tr>
+      <td>Mac changer</td>
+       <td>Replaces each network interface in the system with a fake mac address</td>
+    </tr>
+        </tr>
+    <tr>
+      <td>Anti cold boot</td>
+      <td>Avoids ram dump by deleting traces in the system</td>
+    </tr>
+        </tr>
+    <tr>
+      <td>Timezone changer</td>
+       <td>Sets the time in utc to avoid location leaks from the system clock</td>
+    </tr>
+        </tr>
+    <tr>
+      <td>Hostname changer</td>
+       <td>Replaces the host name with a random name to hide it</td>
+    </tr>
+        </tr>
+    <tr>
+      <td>Browser anonymization</td>
+       <td>Configures the browser to be privacy focused</td>
+    </tr>
+  </tbody>
+</table>
 
 <!-- GETTING STARTED -->
-## Getting Started
+<h2 align="center">Getting started</h2>
 
 If you do not update your system regularly or have not installed these packages on your system, you will not be able to use the tool.
 So let's see what we need before installation and how we can download it.
@@ -85,32 +118,35 @@ So let's see what we need before installation and how we can download it.
    ```
 And that's it, now you're ready to fire up the tool!
 
-<!-- USAGE EXAMPLES -->
-## Usage
+### Usage
  After completing setup, run the application by typing "Kali Whoami" in the search menu or by typing "sudo kali-whoami --help" in a terminal 
 
-   ```
-[+] Usage : sudo kali-whoami [option]
+Parameter | Description
+-------|-------------------
+`--start` | It will make backups and start the program.
+`--stop` | Closes the program using a backup.
+`--status` | Provides information about working status.
+`--fix` | Used to repair the system in case of a possible bug.
+`--help` | This shows the menu.
 
- --start  :   It will make backups and start the program.
- --stop   :   Closes the program using a backup.
- --status :   Provides information about working status.
- --fix    :   Used to repair the system in case of a possible bug.
- --help   :   This shows the menu.
-   ```
-
-<!-- Demo --> 
-## Demo
-![](https://user-images.githubusercontent.com/59175356/124754970-cc8d4c80-def8-11eb-8606-02c6cdd7f5a2.gif)
+<!-- Current version preview --> 
+<h2 align="center">Current version preview</h2>
+<h3 align="center">
+  <br>
+  <a href="http:/whoamiproject.tech"><img align="center" src="https://user-images.githubusercontent.com/59175356/124754970-cc8d4c80-def8-11eb-8606-02c6cdd7f5a2.gif" alt="Whoami" width="900"></a>
+</h3>
 
 <!-- CHANGELOG -->
-## About the upcoming whoami release 
+<h2 align="center">About the upcoming whoami release </h2>
+<h3 align="center">
+  <br>
+  <a href="http:/whoamiproject.tech"><img align="center" src="https://user-images.githubusercontent.com/59175356/160588497-0a5a0de0-cc70-4f21-89e4-996b6119d0ea.png" alt="Whoami" width="700"  height="450"></a>
+</h3>
+
 * Update progress: %80 completed 
 * Next release codename: 3388
 * Stage: Code is being integrated with python (the whole update will be released in june or july)
-* Changelog : Python integration completed some new features are being developed
-
-![demo](https://user-images.githubusercontent.com/59175356/160588497-0a5a0de0-cc70-4f21-89e4-996b6119d0ea.png)
+* Changelog : Python integration completed some new features are being developed.
 
 <!-- LICENSE -->
 ## License
