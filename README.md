@@ -137,7 +137,7 @@ Parameter | Description
 </h3>
 
 <!-- CHANGELOG -->
-<h2 align="center">About the upcoming Whoami release </h2>
+<h2 align="center">About the upcoming Whoami release</h2>
 <h3 align="center">
   <br>
   <a href="http:/whoamiproject.tech"><img align="center" src="https://user-images.githubusercontent.com/59175356/160588497-0a5a0de0-cc70-4f21-89e4-996b6119d0ea.png" alt="Whoami" width="700"  height="450"></a>
