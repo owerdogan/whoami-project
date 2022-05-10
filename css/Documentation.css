@@ -1,0 +1,69 @@
+ .u-section-1 {
+  background-image: linear-gradient(0deg, rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("../images/nmn.png");
+  background-position: 50% 50%;
+  min-height: 100vh;
+}
+
+.u-section-1 .u-group-elements-1 {
+  width: 610px;
+  min-height: 193px;
+  margin: 60px auto;
+}
+
+.u-section-1 .u-text-1 {
+  font-size: 6rem;
+  width: 610px;
+  font-weight: normal;
+  margin: 0 auto;
+}
+
+.u-section-1 .u-text-2 {
+  font-size: 1.25rem;
+  margin: 6px auto 0;
+}
+
+.u-section-1 .u-social-icons-1 {
+  height: 28px;
+  min-height: 16px;
+  width: 28px;
+  min-width: 16px;
+  margin: 22px auto 0;
+}
+
+@media (max-width: 1199px) {
+  .u-section-1 .u-group-elements-1 {
+    height: auto;
+    margin-left: calc(((100% - 1140px) / 2) + 265px);
+  }
+}
+
+@media (max-width: 767px) {
+  .u-section-1 .u-group-elements-1 {
+    margin-left: calc(((100% - 1140px) / 2) + 215px);
+  }
+}
+
+@media (max-width: 575px) {
+   .u-section-1 {
+    min-height: 851px;
+  }
+
+  .u-section-1 .u-group-elements-1 {
+    width: 340px;
+    min-height: 134px;
+    margin-top: 365px;
+    margin-left: auto;
+  }
+
+  .u-section-1 .u-text-1 {
+    font-size: 1.5rem;
+    width: auto;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .u-section-1 .u-social-icons-1 {
+    height: 16px;
+    width: 16px;
+  }
+}
