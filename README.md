@@ -146,7 +146,7 @@ Parameter | Description
 
 * Update progress: %80 completed 
 * Next release codename: 3388
-* Stage: Code is being integrated with python (the whole update will be released in june or july)
+* Stage: Code is being integrated with python (the whole update will be released in 2023 june or july)
 * Changelog : Python integration completed some new features are being developed.
 
 <!-- LICENSE -->
