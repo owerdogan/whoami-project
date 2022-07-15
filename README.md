@@ -51,43 +51,43 @@ Finally, don't forget that there is never a hundred percent security on the inte
   </thead>
   <tbody>
     <tr>
-      <td>Anti mitm</td>
+      <td>Anti Mitm</td>
        <td>Automatically bans the attacker when you come under a Man In The Middle attack</td>
     </tr>
     <tr>
-      <td>Log killer</td> 
+      <td>Log Killer</td> 
        <td>Destroys the log files in system with the overwrite method</td>
     </tr>
     <tr>
-      <td>IP changer</td>
+      <td>IP Changer</td>
        <td>Hides your real ip address by redirecting all network traffic to tor transparent proxy</td>
     </tr>
     <tr>
-      <td>Dns change</td>
+      <td>Dns Change</td>
        <td>Replaces the default dns servers provided by your isp with privacy based servers</td>
     </tr>
     <tr>
-      <td>Mac changer</td>
+      <td>Mac Changer</td>
        <td>Replaces each network interface in the system with a fake mac address</td>
     </tr>
         </tr>
     <tr>
-      <td>Anti cold boot</td>
+      <td>Anti Cold Boot</td>
       <td>Avoids ram dump by deleting traces in the system</td>
     </tr>
         </tr>
     <tr>
-      <td>Timezone changer</td>
+      <td>Timezone Changer</td>
        <td>Sets the time in utc to avoid location leaks from the system clock</td>
     </tr>
         </tr>
     <tr>
-      <td>Hostname changer</td>
+      <td>Hostname Changer</td>
        <td>Replaces the host name with a random name to hide it</td>
     </tr>
         </tr>
     <tr>
-      <td>Browser anonymization</td>
+      <td>Browser Anonymization</td>
        <td>Configures the browser to be privacy focused</td>
     </tr>
   </tbody>
