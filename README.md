@@ -1,4 +1,3 @@
-## Announcement: New Whoami browser add-on project. <br> <a href="https://github.com/owerdogan/whoami-project-browser-add-on">Take your place now!</a>
 ## The project is being recoded to support all operating systems and for new updates. <br> <a href="#about-the-upcoming-whoami-release">Click here for more information.</a>
 
 <!-- PROJECT LOGO -->
