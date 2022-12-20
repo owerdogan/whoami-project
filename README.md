@@ -1,4 +1,4 @@
-## The project is being recoded to support all operating systems and for new updates. <br> <a href="#about-the-upcoming-whoami-release">Click here for more information.</a>
+## Click here to watch the installation guide and a quick demo on <br> <a href="https://www.youtube.com/watch?v=LL2hLghZdks"> YouTube</a>
 
 <!-- PROJECT LOGO -->
 <h1 align="center">
@@ -128,13 +128,6 @@ Parameter | Description
 `--status` | Provides information about working status.
 `--fix` | Used to repair the system in case of a possible bug.
 `--help` | This shows the menu.
-
-<!-- Current version preview --> 
-<h2 align="center">Current version preview</h2>
-<h3 align="center">
-  <br>
-  <a href="http:/whoamiproject.tech"><img align="center" src="https://user-images.githubusercontent.com/59175356/124754970-cc8d4c80-def8-11eb-8606-02c6cdd7f5a2.gif" alt="Whoami" width="900"></a>
-</h3>
 
 <!-- CHANGELOG -->
 <h2 align="center">About the upcoming Whoami release</h2>
