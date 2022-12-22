@@ -27,7 +27,9 @@
     <img src="https://img.shields.io/github/last-commit/omer-dogan/whoami?color=black&style=for-the-badge">
   </a>
 </p>
-  
+<div align="center">
+<details>
+<summary>ABOUT THE PROJECT</summary>
 <!-- ABOUT THE PROJECT -->
 <h2 align="center">About the project</h2>
 
@@ -140,6 +142,7 @@ Parameter | Description
 * Next release codename: 3388
 * Stage: Code is being integrated with python (the whole update will be released in 2023 june or july)
 * Changelog : Python integration completed some new features are being developed.
+</details>
 
 <!-- LICENSE -->
 ## License
