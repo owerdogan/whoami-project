@@ -1,4 +1,4 @@
-## Click here to watch the installation guide and a quick demo on <br> <a href="https://youtu.be/FGjfb_AqSbs"> YouTube</a>
+# Click here to watch the installation guide and a quick demo on <br> <a href="https://youtu.be/FGjfb_AqSbs"> YouTube</a>
 
 <!-- PROJECT LOGO -->
 <h1 align="center">
