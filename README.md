@@ -1,5 +1,5 @@
 # How to Install Kali Linux 2022.4 in VirtualBox (with full disk encryption) <br> <a href="https://www.youtube.com/watch?v=4bicR-jIhIg"> YouTube</a>
-# Click here to watch the installation guide and a quick demo on <br> <a href="https://youtu.be/FGjfb_AqSbs"> YouTube</a>
+# Click here to watch the whoami installation guide and a quick demo on <br> <a href="https://youtu.be/FGjfb_AqSbs"> YouTube</a>
 
 <!-- PROJECT LOGO -->
 <h1 align="center">
