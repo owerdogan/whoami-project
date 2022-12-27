@@ -1,3 +1,4 @@
+# To support the project, just take a few minutes and take a look at the videos below
 # Install Kali on VirtualBox like this and be MORE ANONYMOUS <br> <a href="https://www.youtube.com/watch?v=4bicR-jIhIg"> YouTube</a>
 # Click here to watch the whoami installation guide and a quick demo on <br> <a href="https://youtu.be/FGjfb_AqSbs"> YouTube</a>
 
