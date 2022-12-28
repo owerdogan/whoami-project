@@ -4,6 +4,36 @@
 #check source files
 source /usr/share/kali-whoami/assets/sources/config 2> /dev/null || { clear;echo -e "\e[31m [-] FATAL ERROR: MAIN CONFIG COULD NOT BE SOURCED!\e[0m";exit 1;}
 
+support_youtube() {
+youtube_val=`grep youtube= /usr/share/kali-whoami/assets/sources/config | cut -d'=' -f2`
+
+if [ "$youtube_val" != "FALSE" ]; then
+
+	nonroot_user=`who | awk '$1!="root"{print $1}' | head -1`
+
+	while true; do
+	  info "Would you like to watch the YouTube video to support the project? (y/n/x)"
+	  info "If you don't want to see this question again answer (x)"
+	  echo -ne "${GREEN}\n┌─[whoami]─[~]\n└─╼ $ ${RESET}"; read answer
+	  if [ "$answer" = "y" ]; then
+	    msg "Thank you. The tool will automatically start as soon as you close the video."
+	    sleep 3
+	    sudo -u $nonroot_user firefox -new-tab "https://youtu.be/4bicR-jIhIg"
+	    break
+	  elif [ "$answer" = "n" ]; then
+	    warn "We are sorry but we respect you, tool starting in 2 seconds."
+	    sleep 2
+	    break
+	  elif [ "$answer" = "x" ]; then
+	    echo "youtube=FALSE" >> /usr/share/kali-whoami/assets/sources/config
+	    break
+	  else
+	    warn "Please answer y or n."
+	  fi
+	done
+fi
+}
+
 banner
 # run with a root privilege
 [ $UID != 0 ]  && err "Whoami must be run as root. ${GREEN}'sudo $(basename ${0})'${RESET}" 
@@ -156,6 +186,7 @@ fi
 
     case "$1" in
     --[sS][tT][aA][rR][tT]|-[sS][tT])
+        support_youtube
         start   
         ;;
     --[sS][tT][oO][pP]|-[sS][pP])
