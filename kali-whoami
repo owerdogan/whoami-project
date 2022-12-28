@@ -23,12 +23,12 @@ if [ "$youtube_val" != "FALSE" ]; then
 	    break
 	  elif [ "$answer" = "n" ]; then
 	    warn "We are sorry but we respect you, tool starting in 2 seconds."
-	    curl --silent "https://visitor-badge.glitch.me/badge?page_id=whoami_youtube_answer_no&left_color=black&right_color=red&left_text=Yes%20counter"  # please dont send spam. thanks :)
+	    curl --silent "https://visitor-badge.glitch.me/badge?page_id=whoami_youtube_answer_no&left_color=black&right_color=red&left_text=No%20counter"  # please dont send spam. thanks :)
 	    sleep 2
 	    break
 	  elif [ "$answer" = "x" ]; then
 	    echo "youtube=FALSE" >> /usr/share/kali-whoami/assets/sources/config
-	    curl --silent "https://visitor-badge.glitch.me/badge?page_id=whoami_youtube_answer_x&left_color=black&right_color=red&left_text=Yes%20counter"   # please dont send spam. thanks :)
+	    curl --silent "https://visitor-badge.glitch.me/badge?page_id=whoami_youtube_answer_x&left_color=black&right_color=red&left_text=X%20counter"   # please dont send spam. thanks :)
 	    break
 	  else
 	    warn "Please answer y or n."
