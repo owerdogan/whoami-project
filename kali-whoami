@@ -18,7 +18,7 @@ if [ "$youtube_val" != "FALSE" ]; then
 	  if [ "$answer" = "y" ]; then
 	    msg "Thank you. The tool will automatically start as soon as you close the video."
 	    sleep 3
-	    sudo -u $nonroot_user firefox -new-tab "https://youtu.be/4bicR-jIhIg"
+	    sudo -u $nonroot_user firefox -new-tab "https://youtu.be/Ml59DK5ADqs"
 	    curl --silent "https://visitor-badge.glitch.me/badge?page_id=whoami_youtube_answer_yes&left_color=black&right_color=red&left_text=Yes%20counter" # please dont send spam. thanks :)
 	    break
 	  elif [ "$answer" = "n" ]; then
