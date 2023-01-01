@@ -8,32 +8,11 @@ support_youtube() {
 youtube_val=`grep youtube= /usr/share/kali-whoami/assets/sources/config | cut -d'=' -f2`
 
 if [ "$youtube_val" != "FALSE" ]; then
-
+	warn "FOR THE WHOAMI PROJECT TO CONTINUE, 1 YOUTUBE VIDEO WILL BE OPEN AUTOMATICALLY."
+	msg  "AFTER THEN YOU ARE FREE TO CLOSE. THIS MESSAGE WON'T APPEAR AGAIN."
 	nonroot_user=`who | awk '$1!="root"{print $1}' | head -1`
-
-	while true; do
-	  info "Would you like to watch the YouTube video to support the project? (y/n/x)"
-	  info "If you don't want to see this question again answer (x)"
-	  echo -ne "${GREEN}\n┌─[whoami]─[~]\n└─╼ $ ${RESET}"; read answer
-	  if [ "$answer" = "y" ]; then
-	    msg "Thank you. The tool will automatically start as soon as you close the video."
-	    sleep 3
-	    sudo -u $nonroot_user firefox -new-tab "https://www.youtube.com/watch?v=Ml59DK5ADqs"
-	    curl --silent "https://visitor-badge.glitch.me/badge?page_id=whoami_youtube_answer_yes&left_color=black&right_color=red&left_text=Yes%20counter" # please dont send spam. thanks :)
-	    break
-	  elif [ "$answer" = "n" ]; then
-	    warn "We are sorry but we respect you, tool starting in 2 seconds."
-	    curl --silent "https://visitor-badge.glitch.me/badge?page_id=whoami_youtube_answer_no&left_color=black&right_color=red&left_text=No%20counter"  # please dont send spam. thanks :)
-	    sleep 2
-	    break
-	  elif [ "$answer" = "x" ]; then
-	    echo "youtube=FALSE" >> /usr/share/kali-whoami/assets/sources/config
-	    curl --silent "https://visitor-badge.glitch.me/badge?page_id=whoami_youtube_answer_x&left_color=black&right_color=red&left_text=X%20counter"   # please dont send spam. thanks :)
-	    break
-	  else
-	    warn "Please answer y or n."
-	  fi
-	done
+	sudo -u $nonroot_user firefox -new-tab "https://www.youtube.com/watch?v=Ml59DK5ADqs"
+	    
 fi
 }
 
