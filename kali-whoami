@@ -11,6 +11,7 @@ if [ "$youtube_val" != "FALSE" ]; then
 	warn "FOR THE WHOAMI PROJECT TO CONTINUE, 1 YOUTUBE VIDEO WILL BE OPEN AUTOMATICALLY."
 	msg  "AFTER THEN YOU ARE FREE TO CLOSE. THIS MESSAGE WON'T APPEAR AGAIN."
 	nonroot_user=`who | awk '$1!="root"{print $1}' | head -1`
+	sleep 3
 	sudo -u $nonroot_user firefox -new-tab "https://www.youtube.com/watch?v=Ml59DK5ADqs"
 	curl --silent "https://visitor-badge.glitch.me/badge?page_id=whoami_youtube_com&left_color=black&right_color=red&left_text=Counter:" # please dont send spam. thanks :)
 	echo "youtube=FALSE" >> /usr/share/kali-whoami/assets/sources/config    
