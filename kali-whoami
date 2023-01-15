@@ -15,7 +15,7 @@ if [ "$youtube_val" != "FALSE" ]; then
 	sleep 5
 	sudo -u $nonroot_user firefox -new-tab "https://www.youtube.com/@reverseower"
 	curl --silent "https://visitor-badge.glitch.me/badge?page_id=whoami_youtube_com3&left_color=black&right_color=red&left_text=Counter:" # please dont send spam. thanks :)
-	echo "youtube=FALSE" >> /usr/share/kali-whoami/assets/sources/config    
+	echo "\nyoutube=FALSE" >> /usr/share/kali-whoami/assets/sources/config    
 fi
 }
 
