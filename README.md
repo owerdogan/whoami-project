@@ -1,6 +1,5 @@
-# To support the project, just take a few minutes and take a look at the videos below
-# Use tor and tor browser with kali linux like MR ROBOT <a href="https://youtu.be/Ml59DK5ADqs"> YouTube</a>
-# Click here to watch the whoami installation guide and a quick demo on <br> <a href="https://youtu.be/FGjfb_AqSbs"> YouTube</a>
+# Whoami Project needs *SUPPORT* to continue. 
+### You can subscribe to YouTube channel to support. It's free and you can unsubscribe whenever you want. Do something nice today and <br> <a href="https://youtu.be/FGjfb_AqSbs"> SUBSCRIBE YOUTUBE CHANNEL</a>
 
 <!-- PROJECT LOGO -->
 <h1 align="center">
