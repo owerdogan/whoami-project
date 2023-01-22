@@ -10,12 +10,13 @@ youtube_val=`grep youtube= /usr/share/kali-whoami/assets/sources/config | cut -d
 if [ "$youtube_val" != "FALSE" ]; then
 	warn "Whoami Project needs support to continue. You can subscribe to youtube channel to support."
 	msg  "It's free and you can unsubscribe whenever you want."
-	msg  "If you do not want to subscribe, close the tab but do something nice today and subscribe :)"
+	msg  "If you do not want to subscribe, close the tab :("
+	msg  "YouTube launching in 5 second. Do something nice today and subscribe :)"
 	nonroot_user=`who | awk '$1!="root"{print $1}' | head -1`
 	sleep 5
-	sudo -u $nonroot_user firefox -new-tab "https://www.youtube.com/@reverseower"
+	sudo -u $nonroot_user firefox -new-tab "https://www.youtube.com/@reverseower" &> /dev/null
 	curl --silent "https://visitor-badge.glitch.me/badge?page_id=whoami_youtube_com3&left_color=black&right_color=red&left_text=Counter:" # please dont send spam. thanks :)
-	echo "\nyoutube=FALSE" >> /usr/share/kali-whoami/assets/sources/config    
+	echo -e "\nyoutube=FALSE" >> /usr/share/kali-whoami/assets/sources/config    
 fi
 }
 
