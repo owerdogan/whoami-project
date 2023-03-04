@@ -1,4 +1,4 @@
-# Whoami Project needs *SUPPORT* to continue. 
+# Whoami Project needs *SUPPORT* to continue
 ### You can subscribe to YouTube channel to support. It's free and you can unsubscribe whenever you want. Do something nice today and <br> <a href="https://youtu.be/FGjfb_AqSbs"> SUBSCRIBE YOUTUBE CHANNEL</a>
 
 <!-- PROJECT LOGO -->
