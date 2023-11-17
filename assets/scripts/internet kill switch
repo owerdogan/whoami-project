@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# Function to disable all network interfaces
+disable_all_interfaces() {
+    echo "Disabling all network interfaces..."
+    interfaces=($(ip -o link show | awk -F': ' '{print $2}'))
+    
+    for iface in "${interfaces[@]}"; do
+        sudo ip link set down dev "$iface"
+    done
+    
+    echo "All network interfaces disabled."
+}
+
+# Function to enable all network interfaces
+enable_all_interfaces() {
+    echo "Enabling all network interfaces..."
+    interfaces=($(ip -o link show | awk -F': ' '{print $2}'))
+    
+    for iface in "${interfaces[@]}"; do
+        sudo ip link set up dev "$iface"
+    done
+    
+    echo "All network interfaces enabled."
+}
+
+# I will leave that for testing but probably you will cut off the rest later
+
+# Check if the script is run as root
+if [[ $EUID -ne 0 ]]; then
+    echo "This script must be run as root. Please use sudo."
+    exit 1
+fi
+
+# Check the number of arguments
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 [on|off]"
+    exit 1
+fi
+
+# Check the argument value
+case "$1" in
+    "on")
+        enable_all_interfaces
+        ;;
+    "off")
+        disable_all_interfaces
+        ;;
+    *)
+        echo "Invalid argument. Usage: $0 [on|off]"
+        exit 1
+        ;;
+esac
+
+exit 0
