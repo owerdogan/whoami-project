@@ -1,0 +1,9 @@
+/var/log/*.log
+/var/log/messages
+/var/log/maillog
+/var/log/secure
+/var/log/utmp
+/var/log/wtmp
+/var/log/DiagnosticMessages
+/root/.*history
+/home/*/.*history
