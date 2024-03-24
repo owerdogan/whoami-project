@@ -56,7 +56,7 @@ if [[ "$mac_changer_status" == "Disable" ]]; then
 	    if nmcli dev | grep wifi &>/dev/null; then   
 		 for IFACE in $IFACES; do
 		        if [ $IFACE != "lo" ] && [ $IFACE != "eth0" ]; then
-		             channger_funcs
+		             changer_funcs
 		        fi
 		 done
 	    else
