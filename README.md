@@ -1,145 +1,115 @@
 <!-- PROJECT LOGO -->
 <h1 align="center">
   <br>
-  <a href="http:/whoamiproject.tech"><img src="https://user-images.githubusercontent.com/59175356/160829133-b140e801-8e1e-4255-9277-7ab05ae3640d.png" alt="Whoami" width="200"></a>
+  <a href="https://whoamiproject.tech"><img src="https://user-images.githubusercontent.com/59175356/160829133-b140e801-8e1e-4255-9277-7ab05ae3640d.png" alt="Whoami" width="200"></a>
 </h1>
 
-<h4 align="center"> <a href="http:/whoamiproject.tech" target="_blank">Whoami</a> provides enhanced privacy, anonymity for Debian and Arch based linux distributions</h4>
+<h4 align="center">
+  <a href="https://whoamiproject.tech" target="_blank">Whoami</a> - Enhanced Privacy and Anonymity for Debian and Arch-based Linux Distributions
+</h4>
 
 <p align="center">
- <a href="https://github.com/omer-dogan/kali-whoami/issues/new?assignees=omer-dogan&labels=enhancement&template=feature_request.md&title=Feature+Request">Feature request</a> -
- <a href="https://github.com/omer-dogan/kali-whoami/issues/new?assignees=omer-dogan&labels=bug&template=bug_report.md&title=Bug">Bug report</a>
+  <a href="https://github.com/owerdogan/whoami-project/issues/new?assignees=omer-dogan&labels=enhancement&template=feature_request.md&title=Feature+Request">Feature Request</a> |
+  <a href="https://github.com/owerdogan/whoami-project/issues/new?assignees=omer-dogan&labels=bug&template=bug_report.md&title=Bug">Report a Bug</a>
 </p>
 
 <p align="center">
-  <a href="http:/whoamiproject.tech">
-    <img src="https://img.shields.io/github/v/release/omer-dogan/whoami?color=black&style=for-the-badge">
+  <a href="https://github.com/owerdogan/whoami-project/releases">
+    <img src="https://img.shields.io/github/v/release/owerdogan/whoami-project?color=black&style=for-the-badge" alt="Release">
   </a>
-  <a href="http:/whoamiproject.tech">
-    <img src="https://img.shields.io/github/license/owerdogan/whoami-project?color=black&style=for-the-badge">
+  <a href="https://github.com/owerdogan/whoami-project/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/owerdogan/whoami-project?color=black&style=for-the-badge" alt="License">
   </a>
-  <a href="http:/whoamiproject.tech">
-    <img src="https://img.shields.io/github/languages/code-size/omer-dogan/whoami?color=black&style=for-the-badge">
+  <a href="https://github.com/owerdogan/whoami-project">
+    <img src="https://img.shields.io/github/languages/code-size/owerdogan/whoami-project?color=black&style=for-the-badge" alt="Code Size">
   </a>
-  <a href="http:/whoamiproject.tech">
-    <img src="https://img.shields.io/github/last-commit/omer-dogan/whoami?color=black&style=for-the-badge">
+  <a href="https://github.com/owerdogan/whoami-project/commits">
+    <img src="https://img.shields.io/github/last-commit/owerdogan/whoami-project?color=black&style=for-the-badge" alt="Last Commit">
   </a>
 </p>
+
+---
 
 <!-- ABOUT THE PROJECT -->
-<h2 align="center">About the project</h2>
+## About the Project
 
-__In its simplest and shortest definition, Whoami is a user friendly privacy/anonymity tool with its ease of use and simple interface.__
-Whoami uses __9+__ different modules to ensure the highest possible level of anonymity also solves possible problems without disturbing you with the __Bug fixer__ module, which is in development.
-You can find the <a href="#modules">descriptions of the modules below</a> and more detailed information on the website.
+Whoami is a user-friendly privacy and anonymity tool designed for Debian and Arch-based Linux distributions. With its simple interface and ease of use, it leverages **9+ powerful modules** to ensure the highest level of anonymity. The tool also includes a **Bug Fixer** module (currently in development) to solve issues without user intervention.
 
-Finally, don't forget that there is never a hundred percent security on the internet!
+> **Note:** While Whoami enhances your anonymity, remember there is no such thing as 100% security on the internet!
 
-<!-- MDOULES -->
-<h2 align="center">Modules</h2>
+For detailed documentation, visit the official website: [Whoami Project](https://whoamiproject.tech).
 
-<h4 align="center">See the documentation section on the website for detailed information about <a href="http:/whoamiproject.tech" target="_blank">modules</a></h4>
-<table align="center">
-    <thead>
-    <tr>
-      <th align="center"><img width="225" height="0"> <p>Module name</p></th>
-      <th align="center"><img width="225" height="0"> <p>Description</p></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Anti mitm</td>
-       <td>Automatically bans the attacker when you come under a Man In The Middle attack</td>
-    </tr>
-    <tr>
-      <td>Log killer</td> 
-       <td>Destroys the log files in system with the overwrite method</td>
-    </tr>
-    <tr>
-      <td>IP changer</td>
-       <td>Hides your real ip address by redirecting all network traffic to tor transparent proxy</td>
-    </tr>
-    <tr>
-      <td>Dns change</td>
-       <td>Replaces the default dns servers provided by your isp with privacy based servers</td>
-    </tr>
-    <tr>
-      <td>Mac changer</td>
-       <td>Replaces each network interface in the system with a fake mac address</td>
-    </tr>
-        </tr>
-    <tr>
-      <td>Anti cold boot</td>
-      <td>Avoids ram dump by deleting traces in the system</td>
-    </tr>
-        </tr>
-    <tr>
-      <td>Timezone changer</td>
-       <td>Sets the time in utc to avoid location leaks from the system clock</td>
-    </tr>
-        </tr>
-    <tr>
-      <td>Hostname changer</td>
-       <td>Replaces the host name with a random name to hide it</td>
-    </tr>
-        </tr>
-    <tr>
-      <td>Browser anonymization</td>
-       <td>Configures the browser to be privacy focused</td>
-    </tr>
-  </tbody>
-</table>
+---
+
+<!-- MODULES -->
+## Modules
+
+| Module Name           | Description                                                                 |
+|-----------------------|-----------------------------------------------------------------------------|
+| **Anti MITM**         | Automatically bans attackers during Man-In-The-Middle (MITM) attacks.      |
+| **Log Killer**        | Securely deletes system log files using the overwrite method.               |
+| **IP Changer**        | Redirects all network traffic through a Tor transparent proxy.              |
+| **DNS Changer**       | Replaces default ISP DNS servers with privacy-focused alternatives.         |
+| **MAC Changer**       | Randomizes the MAC address for all network interfaces.                      |
+| **Anti Cold Boot**    | Prevents RAM dumps by securely deleting sensitive traces.                   |
+| **Timezone Changer**  | Sets system time to UTC to avoid location leaks through timestamps.         |
+| **Hostname Changer**  | Randomizes the hostname to hide system identity.                            |
+| **Browser Anonymization** | Configures your browser for maximum privacy.                           |
+
+For an in-depth explanation of each module, see the [Documentation](https://whoamiproject.tech).
+
+---
 
 <!-- GETTING STARTED -->
-<h2 align="center">Getting started</h2>
+## Getting Started
 
-If you do not update your system regularly or have not installed these packages on your system, you will not be able to use the tool.
-So let's see what we need before installation and how we can download it.
+Before installing Whoami, ensure your system is updated and has the required dependencies installed. Use the following command to update your system and install the necessary packages:
 
-* You can download all dependencies with the following command or check if they are up to date.
-
-  ```sh
-  sudo apt update && sudo apt install tar tor curl python3 python3-scapy network-manager
-  ```
+```bash
+sudo apt update && sudo apt install tar tor curl python3 python3-scapy network-manager
+```
 
 ### Installation
 
-1. Clone the repo
- 
-   ```sh
-   git clone https://github.com/omer-dogan/kali-whoami
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/owerdogan/whoami-project
    ```
-2. Install makefile
- 
-   ```sh
+
+2. Install the tool using the Makefile:
+   ```bash
    sudo make install
    ```
-And that's it, now you're ready to fire up the tool!
+
+That's it! You're now ready to use Whoami.
 
 ### Usage
- After completing setup, run the application by typing "Kali Whoami" in the search menu or by typing "sudo kali-whoami --help" in a terminal 
 
-Parameter | Description
--------|-------------------
-`--start` | It will make backups and start the program.
-`--stop` | Closes the program using a backup.
-`--status` | Provides information about working status.
-`--fix` | Used to repair the system in case of a possible bug.
-`--help` | This shows the menu.
+You can start using the tool via the GUI or the terminal. Run the following command for a list of available options:
 
-<!-- CHANGELOG -->
-<h2 align="center">About the upcoming Whoami release</h2>
-<h3 align="center">
-  <br>
-  <a href="http:/whoamiproject.tech"><img align="center" src="https://user-images.githubusercontent.com/59175356/160588497-0a5a0de0-cc70-4f21-89e4-996b6119d0ea.png" alt="Whoami" width="700"  height="450"></a>
-</h3>
+```bash
+sudo kali-whoami --help
+```
 
-* Update progress: %80 completed 
-* Next release codename: 3388
-* Stage: Code is being integrated with python (the whole update will be released in 2023 june or july)
-* Changelog : The long awaited update is bigger than expected and it will be worth everyone's wait.
+| Parameter    | Description                                |
+|--------------|--------------------------------------------|
+| `--start`    | Makes backups and starts the program.      |
+| `--stop`     | Closes the program and restores backups.   |
+| `--status`   | Displays the current working status.       |
+| `--fix`      | Repairs the system in case of a bug.       |
+| `--help`     | Shows the help menu with all commands.     |
+
+---
+
+<!-- UPCOMING RELEASE -->
+## Upcoming Release
+
+![Upcoming Release](https://user-images.githubusercontent.com/59175356/160588497-0a5a0de0-cc70-4f21-89e4-996b6119d0ea.png)
+
 
 <!-- LICENSE -->
 ## License
 
-Distributed under the GPL V3 License. See `LICENSE` for more information
+Distributed under the **GPL v3 License**. See the [LICENSE](https://github.com/owerdogan/whoami-project/blob/main/LICENSE) file for more information.
+
+---
