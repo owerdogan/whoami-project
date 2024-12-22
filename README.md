@@ -37,7 +37,7 @@ Whoami is a user-friendly privacy and anonymity tool designed for Debian and Arc
 
 > **Note:** While Whoami enhances your anonymity, remember there is no such thing as 100% security on the internet!
 
-For detailed documentation, visit the official website: [Whoami Project](https://whoamiproject.tech).
+For detailed documentation, visit the official website: [Whoami Project](https://owerdogan.github.io/whoami-project).
 
 ---
 
