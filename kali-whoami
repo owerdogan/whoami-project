@@ -110,18 +110,77 @@ else
 fi
 }
 
-status(){
+# ---- runtime status helpers ----
+is_active() { systemctl is-active --quiet "$1" 2>/dev/null; }
+pid_alive() { [ -n "$1" ] && [ "$1" != "0" ] && kill -0 "$1" 2>/dev/null; }
+file_exists() { [ -f "$1" ]; }
+dir_exists() { [ -d "$1" ]; }
+fmt() { printf "%-22s cfg:%-7s rt:%s\n" "$1" "$2" "$3"; }
 
-msg "Kali Whoami status:
+status() {
+  msg "Kali Whoami status (configured + runtime checks)"
 
- ${GREEN}Anti Mitm             :${RESET} $anti_mitm_status
- ${GREEN}Ip changer            :${RESET} $ip_changer_status
- ${GREEN}Dns changer           :${RESET} $dns_changer_status
- ${GREEN}Mac changer           :${RESET} $mac_changer_status
- ${GREEN}Timezone changer      :${RESET} $timezone_changer_status
- ${GREEN}Hostname changer      :${RESET} $hostname_changer_status
- ${GREEN}Browser anonymization :${RESET} $browser_anonymization_status"
+  local ok="${GREEN}OK${RESET}"
+  local warn="${YELLOW}WARN${RESET}"
+  local rt tz
 
+  # Anti Mitm (checks PID is alive)
+  if [[ "$anti_mitm_status" == "Enable" ]]; then
+    pid_alive "$anti_mitm_pid" && rt="$ok" || rt="$warn (pid not running)"
+  else
+    pid_alive "$anti_mitm_pid" && rt="$warn (unexpected running)" || rt="$ok"
+  fi
+  fmt "Anti Mitm" "$anti_mitm_status" "$rt"
+
+  # IP changer (checks tor service + key backup)
+  if [[ "$ip_changer_status" == "Enable" ]]; then
+    is_active "tor.service" && rt="$ok" || rt="$warn (tor inactive)"
+    file_exists "$BACKUPDIR/iptables.rules.bak" || rt="$warn (missing backups)"
+  else
+    is_active "tor.service" && rt="$warn (tor active)" || rt="$ok"
+  fi
+  fmt "Ip changer" "$ip_changer_status" "$rt"
+
+  # DNS changer (backup file should exist while enabled)
+  if [[ "$dns_changer_status" == "Enable" ]]; then
+    file_exists "$BACKUPDIR/resolv.conf.bak" && rt="$ok" || rt="$warn (no resolv backup)"
+  else
+    file_exists "$BACKUPDIR/resolv.conf.bak" && rt="$warn (backup leftover)" || rt="$ok"
+  fi
+  fmt "Dns changer" "$dns_changer_status" "$rt"
+
+  # MAC changer (backup dir should exist while enabled)
+  if [[ "$mac_changer_status" == "Enable" ]]; then
+    dir_exists "$BACKUPDIR/mac_addresses" && rt="$ok" || rt="$warn (no mac backup dir)"
+  else
+    dir_exists "$BACKUPDIR/mac_addresses" && rt="$warn (backup leftover)" || rt="$ok"
+  fi
+  fmt "Mac changer" "$mac_changer_status" "$rt"
+
+  # Timezone changer (should be UTC + have backup)
+  if [[ "$timezone_changer_status" == "Enable" ]]; then
+    tz="$(timedatectl show -p Timezone --value 2>/dev/null)"
+    [[ "$tz" == "UTC" ]] && file_exists "$BACKUPDIR/timezone.bak" && rt="$ok" || rt="$warn (tz/backups mismatch)"
+  else
+    rt="$ok"
+  fi
+  fmt "Timezone changer" "$timezone_changer_status" "$rt"
+
+  # Hostname changer (backup file should exist while enabled)
+  if [[ "$hostname_changer_status" == "Enable" ]]; then
+    file_exists "$BACKUPDIR/hostname.bak" && rt="$ok" || rt="$warn (no hostname backup)"
+  else
+    rt="$ok"
+  fi
+  fmt "Hostname changer" "$hostname_changer_status" "$rt"
+
+  # Browser anonymization (checks whoami.js exists)
+  if [[ "$browser_anonymization_status" == "Enable" ]]; then
+    file_exists "/etc/firefox-esr/whoami.js" && rt="$ok" || rt="$warn (missing whoami.js)"
+  else
+    file_exists "/etc/firefox-esr/whoami.js" && rt="$warn (leftover whoami.js)" || rt="$ok"
+  fi
+  fmt "Browser anon" "$browser_anonymization_status" "$rt"
 }
 
 fix(){
